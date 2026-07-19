@@ -15,7 +15,7 @@ export function ContactSection() {
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <a
             href={`mailto:${profile.email}`}
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-signal px-5 py-3 text-center text-sm font-bold text-signal-ink transition hover:brightness-105"
+            className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-5 py-3 text-center text-sm font-bold !text-black transition hover:bg-white/90"
           >
             {profile.email}
           </a>
