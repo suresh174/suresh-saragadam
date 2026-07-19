@@ -29,6 +29,9 @@ export function SiteFooter() {
           <a className="nav-link" href={`tel:${profile.phone.replace(/\s/g, "")}`}>
             Call
           </a>
+          <Link className="nav-link" href="/labs">
+            Labs
+          </Link>
           <Link className="nav-link" href="/writing">
             Notes
           </Link>

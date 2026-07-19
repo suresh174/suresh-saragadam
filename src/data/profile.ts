@@ -163,20 +163,3 @@ export const achievements = [
   "Client Duct Tape Award (TCS) for pragmatic delivery under pressure.",
   "Coordinator and problem setter for the annual college technical / coding fest.",
 ] as const;
-
-export const writingPlaceholders = [
-  {
-    slug: "roadmap",
-    title: "Learning roadmap",
-    excerpt:
-      "Notes on what I am studying next across LLM evaluation, observability, and production assistants. Coming soon.",
-    status: "soon" as const,
-  },
-  {
-    slug: "prompt-evals-in-production",
-    title: "Keeping prompt changes safe in production",
-    excerpt:
-      "How evaluators, Langfuse, and structured outputs help ship intent-aware assistants without breaking existing flows. Draft in progress.",
-    status: "soon" as const,
-  },
-] as const;

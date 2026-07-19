@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { writingPlaceholders } from "@/data/profile";
+import { writingPosts } from "@/data/writing";
 
 export const metadata: Metadata = {
   title: "Notes",
   description:
-    "Learning notes and roadmap thoughts from Suresh Saragadam — GenAI assistants, evaluation, and product engineering.",
+    "Learning notes and teaching posts from Suresh Saragadam — GenAI labs, on-device vision, and production assistants.",
 };
 
 export default function WritingPage() {
@@ -17,31 +17,59 @@ export default function WritingPage() {
 
       <p className="mono-label mt-10">Writing</p>
       <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl font-extrabold tracking-tight sm:text-5xl">
-        Notes & roadmap
+        Notes & teaching posts
       </h1>
       <p className="mt-5 text-lg leading-relaxed text-ink-soft">
-        This space will grow with learning notes, build logs, and a living
-        roadmap. Placeholders stay until the first posts ship.
+        I write here to teach what I build — in plain English, with a live lab
+        whenever I can.
       </p>
 
       <div className="mt-12 space-y-5">
-        {writingPlaceholders.map((post) => (
-          <article
-            key={post.slug}
-            className="rounded-[1.25rem] border border-dashed border-line bg-white/45 px-6 py-6"
-          >
-            <div className="flex items-center gap-3">
-              <span className="chip">Coming soon</span>
-              <span className="mono-label !normal-case !tracking-normal">
-                /{post.slug}
-              </span>
-            </div>
-            <h2 className="mt-4 font-[family-name:var(--font-display)] text-2xl font-bold">
-              {post.title}
-            </h2>
-            <p className="mt-2 text-ink-soft">{post.excerpt}</p>
-          </article>
-        ))}
+        {writingPosts.map((post) => {
+          const isLive = post.status === "published";
+
+          if (isLive) {
+            return (
+              <Link
+                key={post.slug}
+                href={`/writing/${post.slug}`}
+                className="block rounded-[1.25rem] border border-line bg-white/70 px-6 py-6 transition hover:-translate-y-0.5 hover:border-sea/35 hover:bg-white/90"
+              >
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="chip">Published</span>
+                  <span className="mono-label !normal-case !tracking-normal">
+                    {post.dateLabel}
+                  </span>
+                </div>
+                <h2 className="mt-4 font-[family-name:var(--font-display)] text-2xl font-bold">
+                  {post.title}
+                </h2>
+                <p className="mt-2 text-ink-soft">{post.excerpt}</p>
+                <p className="mt-4 text-sm font-semibold text-sea-deep">
+                  Read post →
+                </p>
+              </Link>
+            );
+          }
+
+          return (
+            <article
+              key={post.slug}
+              className="rounded-[1.25rem] border border-dashed border-line bg-white/45 px-6 py-6"
+            >
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="chip">Coming soon</span>
+                <span className="mono-label !normal-case !tracking-normal">
+                  {post.dateLabel}
+                </span>
+              </div>
+              <h2 className="mt-4 font-[family-name:var(--font-display)] text-2xl font-bold">
+                {post.title}
+              </h2>
+              <p className="mt-2 text-ink-soft">{post.excerpt}</p>
+            </article>
+          );
+        })}
       </div>
     </div>
   );

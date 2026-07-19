@@ -9,8 +9,9 @@ const links = [
   { href: "/#work", label: "Work" },
   { href: "/#skills", label: "Skills" },
   { href: "/#about", label: "About" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/labs", label: "Labs" },
   { href: "/writing", label: "Notes" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function SiteHeader() {
@@ -57,7 +58,9 @@ export function SiteHeader() {
             const active =
               link.href === "/writing"
                 ? pathname.startsWith("/writing")
-                : false;
+                : link.href === "/labs"
+                  ? pathname.startsWith("/labs")
+                  : false;
             return (
               <Link
                 key={link.href}
