@@ -11,7 +11,7 @@ export function NotesTeaser() {
         <h2 className="mt-3 max-w-xl font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
           I teach what I build — starting with Fraud Check.
         </h2>
-        <p className="mt-4 max-w-lg text-ink-soft">
+        <p className="mt-4 max-w-lg font-light text-ink-soft">
           {latest
             ? latest.excerpt
             : "Learning notes and build logs land here as I document what I am teaching next."}

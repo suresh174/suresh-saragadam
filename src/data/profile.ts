@@ -12,14 +12,14 @@ export const profile = {
   email: "saragadamsuresh174@gmail.com",
   linkedin: "https://www.linkedin.com/in/suresh-saragadam-11017415a",
   resumePath: "/Suresh-Saragadam-Resume.pdf",
-  photoHero: "/photos/suresh-outdoor.png",
-  photoPortrait: "/photos/suresh-portrait.png",
+  /** Single professional headshot used site-wide */
+  photo: "/photos/suresh.png",
   summary:
-    "Senior Software Development Engineer, currently active at NielsenIQ (since Oct 2022). I ship full-stack product work in React and Node.js. Over the last ~1.5 years I've focused on a GenAI assistant that interprets intent and returns grounded responses from our systems — simple on the surface, hard in production. Reliability, prompt-change safety, observability, and evaluation are the real challenges; I've tackled them with Azure OpenAI, Langfuse, Python, Pydantic, and automated evaluators.",
+    "Senior Software Development Engineer, currently active at NielsenIQ (since Oct 2022). I ship full-stack product work in React and Node.js. Over the last ~1.5 years I've focused on a GenAI assistant that interprets intent and returns grounded responses from our systems — simple on the surface, hard in production. Reliability, prompt-change safety, token efficiency, and evaluation are the real challenges; I've tackled them with Azure OpenAI, Python, Pydantic, automated evaluators, and production monitoring.",
   focusAreas: [
     "Intent-aware LLM assistants",
-    "Azure OpenAI · Langfuse · evals",
-    "Python · Pydantic",
+    "Azure OpenAI · Python · Pydantic",
+    "Prompt evals · token optimization",
     "React + Node.js",
   ],
 } as const;
@@ -37,9 +37,9 @@ export const experience = [
     highlights: [
       "Currently active — shipping production retail analytics for small and medium CPG manufacturers.",
       "For ~1.5 years, building a GenAI assistant that understands user intent and responds with information available in our systems — simple in concept, demanding in production.",
-      "Kept prompt iteration safe with automated evaluators, Pydantic structured outputs, and Langfuse observability on Azure OpenAI.",
-      "Worked across the stack — Python for LLM services, React for product UX, Node.js where the platform needs it.",
-      "Shipped reusable UI and platform components adopted across functional areas by the wider team.",
+      "Integrated Azure OpenAI with agent-style tool calling and multi-step response flows; used Python and Pydantic for structured outputs and reliable pipelines.",
+      "Kept prompt iteration safe with automated evaluators; optimized token usage for cost and latency; monitored LLM and service health with Grafana (and related observability tooling).",
+      "Worked across the stack — Python for LLM services, React for product UX, Node.js where the platform needs it — and shipped reusable UI components adopted across teams.",
     ],
   },
   {
@@ -88,13 +88,14 @@ export const projects = [
     org: "NielsenIQ · ongoing",
     period: "~1.5 yrs GenAI (within NIQ tenure)",
     description:
-      "A production conversational assistant for retail analytics. It interprets what the user is asking, maps that intent to data and responses in our product, and returns answers teams can trust. Behind the calm UX: Azure OpenAI, Langfuse tracing, Pydantic-structured pipelines, and evaluator suites so prompt changes do not silently break existing flows.",
+      "A production conversational assistant for retail analytics. It interprets what the user is asking, maps that intent to data and responses in our product, and returns answers teams can trust. Behind the calm UX: Azure OpenAI orchestration, Pydantic-structured pipelines, token-conscious prompting, evaluator suites, and Grafana-backed monitoring so prompt changes do not silently break existing flows.",
     stack: [
       "Azure OpenAI",
-      "Langfuse",
-      "Prompt evaluation",
       "Python",
       "Pydantic",
+      "Prompt evaluation",
+      "Token optimization",
+      "Grafana",
       "React",
       "Node.js",
     ],
@@ -113,8 +114,9 @@ export const skills = {
   ai: [
     "Intent understanding & grounded responses",
     "Azure OpenAI (GPT-4o / mini / o-series)",
-    "Langfuse observability",
+    "Agent-style tool calling & multi-step flows",
     "Prompt evaluation & regression tests",
+    "Token optimization (cost & latency)",
     "Python · Pydantic structured outputs",
   ],
   frontend: ["React", "JavaScript", "TypeScript", "Bootstrap", "Analytics UI"],
@@ -129,6 +131,7 @@ export const skills = {
   ],
   data: ["MySQL", "PostgreSQL", "MongoDB"],
   platform: [
+    "Grafana monitoring",
     "Docker",
     "Nginx",
     "Apache",

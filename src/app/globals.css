@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0c1a1f;
-  --ink-soft: #2a3f47;
-  --mist: #e7f0f2;
-  --fog: #d3e4e8;
-  --sea: #0f5c66;
-  --sea-deep: #083f46;
-  --signal: #e8ff6b;
-  --signal-ink: #1a2200;
-  --foam: #f4fbfc;
-  --line: rgba(12, 26, 31, 0.12);
-  --glow: rgba(15, 92, 102, 0.18);
+  /* Professional light theme — navy from headshot blazer */
+  --ink: #132238;
+  --ink-soft: #4a5d73;
+  --mist: #eef2f7;
+  --fog: #d9e2ec;
+  --sea: #1e4d8c;
+  --sea-deep: #163a6b;
+  --signal: #d4a017;
+  --signal-ink: #2a2100;
+  --foam: #f8fafc;
+  --line: rgba(19, 34, 56, 0.1);
+  --glow: rgba(30, 77, 140, 0.16);
   --background: var(--foam);
   --foreground: var(--ink);
 }
@@ -46,12 +47,21 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 300;
   overflow-x: hidden;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  font-weight: 700;
+}
+
 ::selection {
-  background: var(--signal);
-  color: var(--signal-ink);
+  background: rgba(30, 77, 140, 0.18);
+  color: var(--ink);
 }
 
 a {
@@ -99,34 +109,24 @@ a {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 55% at 12% -10%, rgba(15, 92, 102, 0.22), transparent 55%),
-    radial-gradient(ellipse 70% 50% at 95% 8%, rgba(232, 255, 107, 0.18), transparent 50%),
-    radial-gradient(ellipse 60% 45% at 70% 95%, rgba(15, 92, 102, 0.12), transparent 55%),
-    linear-gradient(180deg, #f7fcfd 0%, #eaf3f5 48%, #e3eef1 100%);
-  animation: atmosphere-drift 18s ease-in-out infinite alternate;
+    radial-gradient(ellipse 75% 50% at 8% -8%, rgba(30, 77, 140, 0.14), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 100% 5%, rgba(212, 160, 23, 0.1), transparent 50%),
+    radial-gradient(ellipse 55% 40% at 70% 100%, rgba(30, 77, 140, 0.08), transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 50%, #e8eef5 100%);
 }
 
-.site-atmosphere::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.35;
-  background-image:
-    linear-gradient(rgba(12, 26, 31, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(12, 26, 31, 0.03) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
-@keyframes atmosphere-drift {
-  from {
-    filter: hue-rotate(0deg) saturate(1);
-    transform: scale(1);
-  }
-  to {
-    filter: hue-rotate(8deg) saturate(1.05);
-    transform: scale(1.03);
-  }
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes rise {
@@ -152,12 +152,12 @@ a {
 @keyframes pulse-soft {
   0%,
   100% {
-    opacity: 0.55;
+    opacity: 0.5;
     transform: scale(1);
   }
   50% {
-    opacity: 0.9;
-    transform: scale(1.04);
+    opacity: 0.85;
+    transform: scale(1.03);
   }
 }
 
@@ -187,7 +187,7 @@ a {
   position: absolute;
   border-radius: 9999px;
   filter: blur(2px);
-  animation: pulse-soft 7s ease-in-out infinite;
+  animation: pulse-soft 8s ease-in-out infinite;
 }
 
 .hero-orb-a {
@@ -195,7 +195,12 @@ a {
   height: min(52vw, 420px);
   right: -6%;
   top: 8%;
-  background: radial-gradient(circle at 30% 30%, rgba(232, 255, 107, 0.55), rgba(15, 92, 102, 0.25) 55%, transparent 70%);
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(30, 77, 140, 0.28),
+    rgba(212, 160, 23, 0.12) 55%,
+    transparent 70%
+  );
 }
 
 .hero-orb-b {
@@ -203,7 +208,7 @@ a {
   height: min(40vw, 300px);
   right: 18%;
   bottom: 4%;
-  background: radial-gradient(circle at 40% 40%, rgba(15, 92, 102, 0.35), transparent 70%);
+  background: radial-gradient(circle at 40% 40%, rgba(30, 77, 140, 0.22), transparent 70%);
   animation-delay: 1.4s;
 }
 
@@ -218,6 +223,7 @@ a {
 
 .nav-link {
   position: relative;
+  font-weight: 400;
 }
 
 .nav-link::after {
@@ -251,7 +257,7 @@ a {
   font-weight: 600;
   letter-spacing: 0.01em;
   transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
-  box-shadow: 0 10px 30px rgba(12, 26, 31, 0.18);
+  box-shadow: 0 10px 28px rgba(19, 34, 56, 0.16);
 }
 
 .btn-primary:hover {
@@ -268,15 +274,15 @@ a {
   padding: 0.85rem 1.35rem;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(8px);
-  font-weight: 600;
+  font-weight: 500;
   transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
 }
 
 .btn-secondary:hover {
   border-color: var(--sea);
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   transform: translateY(-1px);
 }
 
@@ -285,7 +291,7 @@ a {
   align-items: center;
   padding: 0.35rem 0.7rem;
   border-radius: 999px;
-  background: rgba(15, 92, 102, 0.08);
+  background: rgba(30, 77, 140, 0.08);
   color: var(--sea-deep);
   font-size: 0.78rem;
   font-weight: 500;
@@ -296,9 +302,15 @@ a {
 .mono-label {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.75rem;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--sea);
+}
+
+.tagline-italic {
+  font-style: italic;
+  font-weight: 400;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -308,8 +320,12 @@ a {
   .animate-rise-delay-1,
   .animate-rise-delay-2,
   .animate-rise-delay-3,
-  .section-rule {
+  .section-rule,
+  .reveal {
     animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .animate-ping {

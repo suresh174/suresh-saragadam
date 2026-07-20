@@ -38,7 +38,7 @@ export const writingPosts: WritingPost[] = [
     slug: "prompt-evals-in-production",
     title: "Keeping prompt changes safe in production",
     excerpt:
-      "How evaluators, Langfuse, and structured outputs help ship intent-aware assistants without breaking existing flows. Draft in progress.",
+      "How evaluators, structured outputs, and monitoring help ship intent-aware assistants without breaking existing flows. Draft in progress.",
     date: "2026-07-01",
     dateLabel: "Soon",
     status: "soon",

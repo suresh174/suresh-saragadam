@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
-import { Syne, Manrope, JetBrains_Mono } from "next/font/google";
+import { Poppins, JetBrains_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
-const display = Syne({
-  variable: "--font-display",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-});
-
-const sans = Manrope({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 const mono = JetBrains_Mono({
@@ -37,25 +32,27 @@ export const metadata: Metadata = {
     "AI Engineer",
     "GenAI",
     "Azure OpenAI",
-    "Langfuse",
+    "Python",
+    "Pydantic",
     "React",
     "Node.js",
+    "Grafana",
     "Suresh Saragadam",
     "NielsenIQ",
   ],
   openGraph: {
     title: "Suresh Saragadam — AI Engineer",
     description:
-      "Intent-aware assistants · Azure OpenAI · Langfuse · evals · React & Node.js.",
+      "Intent-aware assistants · Azure OpenAI · Python · evals · React & Node.js.",
     url: "https://sureshsaragadam.vercel.app",
     siteName: "Suresh Saragadam",
     locale: "en_IN",
     type: "website",
     images: [
       {
-        url: "/photos/suresh-portrait.png",
-        width: 640,
-        height: 800,
+        url: "/photos/suresh.png",
+        width: 800,
+        height: 1000,
         alt: "Suresh Saragadam",
       },
     ],
@@ -65,7 +62,7 @@ export const metadata: Metadata = {
     title: "Suresh Saragadam — AI Engineer",
     description:
       "Building production LLM assistants that understand intent and answer from real system data.",
-    images: ["/photos/suresh-portrait.png"],
+    images: ["/photos/suresh.png"],
   },
   robots: {
     index: true,
@@ -81,9 +78,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${mono.variable} h-full antialiased`}
+      style={{
+        // Poppins for both display (bold) and body (light)
+        ["--font-display" as string]: "var(--font-poppins)",
+        ["--font-sans" as string]: "var(--font-poppins)",
+      }}
     >
-      <body className="flex min-h-full flex-col text-ink">
+      <body className="flex min-h-full flex-col font-light text-ink">
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <div className="site-atmosphere" aria-hidden />
         <SiteHeader />
         <main id="main" className="flex-1">

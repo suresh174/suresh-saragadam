@@ -13,15 +13,15 @@ export function Hero() {
         <div className="order-2 lg:order-1">
           <p className="mono-label animate-rise">AI Engineer · Visakhapatnam</p>
 
-          <h1 className="animate-rise-delay-1 mt-3 font-[family-name:var(--font-display)] text-[clamp(2.35rem,8vw,4.6rem)] font-extrabold leading-[0.95] tracking-tight text-ink sm:mt-4">
+          <h1 className="animate-rise-delay-1 mt-3 font-[family-name:var(--font-display)] text-[clamp(2.35rem,8vw,4.6rem)] font-bold leading-[0.98] tracking-tight text-ink sm:mt-4">
             {profile.name}
           </h1>
 
-          <p className="animate-rise-delay-2 mt-5 max-w-xl text-base leading-relaxed text-ink-soft sm:mt-6 sm:text-lg">
+          <p className="animate-rise-delay-2 mt-5 max-w-xl text-base font-light leading-relaxed text-ink-soft sm:mt-6 sm:text-lg">
             {profile.intro}
           </p>
 
-          <p className="animate-rise-delay-2 mt-3 max-w-lg text-sm font-semibold text-sea-deep sm:mt-4 sm:text-base">
+          <p className="tagline-italic animate-rise-delay-2 mt-3 max-w-lg text-sm text-sea-deep sm:mt-4 sm:text-base">
             {profile.tagline}
           </p>
 
@@ -59,21 +59,20 @@ export function Hero() {
 
         <div className="order-1 animate-rise-delay-1 lg:order-2">
           <div className="hero-photo-frame relative mx-auto w-full max-w-[280px] sm:max-w-sm lg:max-w-none">
-            <div className="absolute -inset-2 rounded-[1.75rem] bg-gradient-to-br from-signal/40 via-transparent to-sea/25 blur-sm sm:-inset-3 sm:rounded-[2rem]" />
-            <div className="relative overflow-hidden rounded-[1.5rem] bg-fog/40 shadow-[0_24px_60px_rgba(12,26,31,0.16)] ring-1 ring-white/60 sm:rounded-[1.75rem]">
+            <div className="absolute -inset-2 rounded-[1.75rem] bg-gradient-to-br from-sea/25 via-transparent to-signal/20 blur-sm sm:-inset-3 sm:rounded-[2rem]" />
+            <div className="relative overflow-hidden rounded-[1.5rem] bg-fog/40 shadow-[0_24px_60px_rgba(19,34,56,0.14)] ring-1 ring-white/70 sm:rounded-[1.75rem]">
               <Image
-                src={profile.photoHero}
+                src={profile.photo}
                 alt={`${profile.name}, AI Engineer`}
                 width={720}
                 height={900}
                 priority
-                className="aspect-[4/5] h-auto w-full object-cover object-[50%_18%] sm:object-[50%_12%]"
+                className="aspect-[4/5] h-auto w-full object-cover object-[50%_15%]"
                 sizes="(max-width: 640px) 280px, (max-width: 1024px) 384px, 42vw"
               />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-sea-deep/30 to-transparent sm:h-28" />
             </div>
-            <p className="mt-3 text-center text-xs text-ink-soft sm:mt-4 sm:text-sm lg:text-left">
-              React · Node.js · Azure OpenAI · Langfuse
+            <p className="mt-3 text-center text-xs font-light text-ink-soft sm:mt-4 sm:text-sm lg:text-left">
+              React · Node.js · Azure OpenAI · Python
             </p>
           </div>
         </div>
