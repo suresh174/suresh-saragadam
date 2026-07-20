@@ -39,7 +39,7 @@ export const labs: Lab[] = [
       "Follow LEARNING_PATH.md; each part is one concept with a clear status.",
     ],
     githubUrl: "https://github.com/suresh-ai-lab/ai-explorer",
-    notesUrl: "/writing/ai-explorer-overview",
+    notesUrl: "/writing/ai-explorer-lessons",
   },
   {
     slug: "fraud-check",
@@ -66,7 +66,7 @@ export const roadmapItems = [
     phase: "Now",
     items: [
       "AI Explorer spine live in-repo: chat → tools → RAG → agents → Grafana/Docker/evals",
-      "Portfolio notes: overview, Parts 1–3, how to follow, AI roles & opportunities",
+      "Portfolio lesson series: Lesson 1–20 hub + setup/roles companion notes",
       "Fraud Check — live side lab (camera integrity + notes)",
     ],
   },
@@ -75,7 +75,7 @@ export const roadmapItems = [
     items: [
       "Optional pgvector backend; simple auth before a public hosted demo",
       "Simple auth + rate limits before a public hosted demo",
-      "More portfolio part notes as each concept deserves a story",
+      "Auth + load notes when those spine items leave “partial”",
     ],
   },
   {

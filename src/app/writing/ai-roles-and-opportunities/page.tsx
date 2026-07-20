@@ -203,18 +203,27 @@ export default function AiRolesPage() {
             A practical starting path
           </h2>
           <ol className="mt-4 list-decimal space-y-2 pl-5">
-            <li>Run AI Explorer Part 1–4 (chat, prompts, stream, history).</li>
-            <li>Add tools + RAG (Parts 6–10) if you want product-shaped demos.</li>
-            <li>Add MCP + guardrails + Grafana if you want “production-minded.”</li>
-            <li>Use evals before you claim a prompt change is “better.”</li>
+            <li>
+              Follow{" "}
+              <Link
+                href="/writing/ai-explorer-lessons"
+                className="nav-link font-semibold text-sea-deep"
+              >
+                Lessons 1–4
+              </Link>{" "}
+              (chat, prompts, stream, history).
+            </li>
+            <li>Continue through tools + RAG (Lessons 6–11) for product-shaped demos.</li>
+            <li>Add MCP + guardrails + Grafana (Lessons 15–18) for production-minded habits.</li>
+            <li>Use evals (Lesson 19) before you claim a prompt change is “better.”</li>
           </ol>
           <p className="mt-4">
             Next:{" "}
             <Link
-              href="/writing/ai-explorer-how-to-follow"
+              href="/writing/ai-explorer-lessons"
               className="nav-link font-semibold text-sea-deep"
             >
-              How to follow along
+              Open the lesson series
             </Link>
             .
           </p>

@@ -36,11 +36,11 @@ export default function AiExplorerOverviewPage() {
             GitHub →
           </a>
         ) : null}
-        <Link href="/writing/ai-explorer-how-to-follow" className="btn-secondary">
-          How to follow
+        <Link href="/writing/ai-explorer-lessons" className="btn-secondary">
+          Lesson series
         </Link>
-        <Link href="/writing/ai-explorer-part-1-basic-llm" className="btn-secondary">
-          Part 1 notes
+        <Link href="/writing/ai-explorer-how-to-follow" className="btn-secondary">
+          Setup
         </Link>
         <Link href="/writing/ai-roles-and-opportunities" className="btn-secondary">
           AI roles
@@ -130,14 +130,14 @@ export default function AiExplorerOverviewPage() {
             <li>Open the GitHub repo and read README + LEARNING_PATH.</li>
             <li>Run with Docker or local API + web using your own OpenAI key.</li>
             <li>
-              Read Part notes in order — start with{" "}
+              Follow the numbered{" "}
               <Link
-                href="/writing/ai-explorer-part-1-basic-llm"
+                href="/writing/ai-explorer-lessons"
                 className="nav-link font-semibold text-sea-deep"
               >
-                Part 1
-              </Link>
-              .
+                lesson series
+              </Link>{" "}
+              — start at Lesson 1.
             </li>
             <li>Inspect only the next part in code — keep /health green.</li>
           </ol>

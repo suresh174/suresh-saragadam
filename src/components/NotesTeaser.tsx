@@ -1,52 +1,31 @@
 import Link from "next/link";
-import { publishedPosts } from "@/data/writing";
+import { SERIES_HUB_PATH } from "@/data/aiExplorerLessons";
 import { Reveal } from "@/components/Reveal";
 
 export function NotesTeaser() {
-  const latest = publishedPosts[0];
-
   return (
     <section className="px-5 pb-8 sm:px-8">
       <Reveal>
         <div className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-line bg-gradient-to-br from-white/80 via-mist/80 to-fog/70 px-7 py-10 sm:px-10 sm:py-12">
           <p className="mono-label">Notes</p>
           <h2 className="mt-3 max-w-xl font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
-            Notes from what ships — starting with AI Explorer.
+            AI Explorer lessons — Lesson 1 to 20.
           </h2>
           <p className="mt-4 max-w-lg font-light text-ink-soft">
-            {latest
-              ? latest.excerpt
-              : "Learning notes and build logs land here as each lab matures."}
+            A numbered series so beginners never get lost: what you&rsquo;ll
+            learn, how it shows up in the app, what we learned, and a takeaway —
+            then Next lesson →.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            {latest ? (
-              <Link
-                href={`/writing/${latest.slug}`}
-                className="btn-primary inline-flex"
-              >
-                Read the post
-              </Link>
-            ) : null}
-            {latest?.githubUrl ? (
-              <a
-                href={latest.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary inline-flex"
-              >
-                GitHub →
-              </a>
-            ) : null}
-            {latest?.liveUrl ? (
-              <a
-                href={latest.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary inline-flex"
-              >
-                Try live lab →
-              </a>
-            ) : null}
+            <Link href={SERIES_HUB_PATH} className="btn-primary inline-flex">
+              Open lesson series
+            </Link>
+            <Link
+              href={`${SERIES_HUB_PATH}/lesson-1-talk-to-an-llm`}
+              className="btn-secondary inline-flex"
+            >
+              Start Lesson 1 →
+            </Link>
             <Link href="/writing" className="btn-secondary inline-flex">
               All notes
             </Link>

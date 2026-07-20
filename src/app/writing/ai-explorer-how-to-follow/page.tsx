@@ -36,6 +36,9 @@ export default function HowToFollowPage() {
             GitHub →
           </a>
         ) : null}
+        <Link href="/writing/ai-explorer-lessons" className="btn-secondary">
+          Lesson series
+        </Link>
         <Link href="/writing/ai-explorer-overview" className="btn-secondary">
           Overview
         </Link>
@@ -126,7 +129,14 @@ export default function HowToFollowPage() {
           <p className="mt-4">
             Read <code className="text-sm text-ink">LEARNING_PATH.md</code>. Each part is marked{" "}
             <code className="text-sm text-ink">done</code> or <code className="text-sm text-ink">partial</code>.
-            Follow portfolio notes for Parts 1–3, then inspect the matching feature folder in code.
+            Then follow the portfolio{" "}
+            <Link
+              href="/writing/ai-explorer-lessons"
+              className="nav-link font-semibold text-sea-deep"
+            >
+              Lesson 1–20 series
+            </Link>{" "}
+            — each lesson has what you&rsquo;ll learn, a recap, and a takeaway — and open the matching feature folder in code.
             Keep <code className="text-sm text-ink">/health</code> green.
           </p>
         </section>

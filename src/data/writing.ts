@@ -9,9 +9,23 @@ export type WritingPost = {
   liveUrl?: string;
   githubUrl?: string;
   tags: string[];
+  /** When set, list this under "Other notes" rather than the lesson series */
+  kind?: "series-hub" | "companion" | "lab";
 };
 
 export const writingPosts: WritingPost[] = [
+  {
+    slug: "ai-explorer-lessons",
+    title: "AI Explorer lessons — Lesson 1 to 20",
+    excerpt:
+      "Numbered series for beginners: Lesson 1 (talk to an LLM) through Lesson 20 (Docker & CI). Each page has what you’ll learn, a recap, and a takeaway.",
+    date: "2026-07-20",
+    dateLabel: "Jul 20, 2026",
+    status: "published",
+    githubUrl: "https://github.com/suresh-ai-lab/ai-explorer",
+    tags: ["AI Explorer", "Lessons", "Learning path"],
+    kind: "series-hub",
+  },
   {
     slug: "ai-roles-and-opportunities",
     title: "AI roles and opportunities — plain English map",
@@ -22,61 +36,31 @@ export const writingPosts: WritingPost[] = [
     status: "published",
     githubUrl: "https://github.com/suresh-ai-lab/ai-explorer",
     tags: ["Careers", "AI Engineering", "Roles"],
+    kind: "companion",
   },
   {
     slug: "ai-explorer-overview",
-    title: "AI Explorer: learn AI Engineering with one evolving app",
+    title: "AI Explorer: one evolving app (overview)",
     excerpt:
-      "A full path from a basic LLM call to production habits — tools, RAG, agents, observability, Docker, CI/CD, evals — by growing one open-source product, not a pile of disconnected demos.",
+      "What the product is, why one app beats disconnected demos, and where the numbered lesson series starts.",
     date: "2026-07-20",
     dateLabel: "Jul 20, 2026",
     status: "published",
     githubUrl: "https://github.com/suresh-ai-lab/ai-explorer",
-    tags: ["AI Explorer", "AI Engineering", "Learning path"],
+    tags: ["AI Explorer", "Overview"],
+    kind: "companion",
   },
   {
     slug: "ai-explorer-how-to-follow",
-    title: "How to follow along with AI Explorer",
+    title: "How to run AI Explorer (setup)",
     excerpt:
-      "Clone the repo, run with Docker or local API + web, set your OpenAI key, and walk the learning path one part at a time.",
+      "Clone the repo, run with Docker or local API + web, set your OpenAI key — then start Lesson 1.",
     date: "2026-07-20",
     dateLabel: "Jul 20, 2026",
     status: "published",
     githubUrl: "https://github.com/suresh-ai-lab/ai-explorer",
     tags: ["AI Explorer", "Getting started"],
-  },
-  {
-    slug: "ai-explorer-part-1-basic-llm",
-    title: "AI Explorer Part 1: basic LLM chat (the foundation)",
-    excerpt:
-      "The first seam: Next.js UI → FastAPI → OpenAI Responses API → reply. Feature modules, Pydantic contracts, and an LLM adapter — before tools or RAG.",
-    date: "2026-07-20",
-    dateLabel: "Jul 20, 2026",
-    status: "published",
-    githubUrl: "https://github.com/suresh-ai-lab/ai-explorer",
-    tags: ["AI Explorer", "Part 1", "FastAPI", "OpenAI"],
-  },
-  {
-    slug: "ai-explorer-part-2-prompt-engineering",
-    title: "AI Explorer Part 2: prompt engineering (modes you control)",
-    excerpt:
-      "Same model, different behavior. In plain English: you steer replies with instructions. Practitioners call that prompt engineering — tutor, coach, concise modes in the app.",
-    date: "2026-07-20",
-    dateLabel: "Jul 20, 2026",
-    status: "published",
-    githubUrl: "https://github.com/suresh-ai-lab/ai-explorer",
-    tags: ["AI Explorer", "Part 2", "Prompts"],
-  },
-  {
-    slug: "ai-explorer-part-3-streaming",
-    title: "AI Explorer Part 3: streaming replies",
-    excerpt:
-      "Waiting for the whole answer feels broken. Tokens can arrive as they’re generated — that’s streaming (SSE in this stack).",
-    date: "2026-07-20",
-    dateLabel: "Jul 20, 2026",
-    status: "published",
-    githubUrl: "https://github.com/suresh-ai-lab/ai-explorer",
-    tags: ["AI Explorer", "Part 3", "Streaming"],
+    kind: "companion",
   },
   {
     slug: "fraud-check-teaching-lab",
@@ -89,6 +73,7 @@ export const writingPosts: WritingPost[] = [
     liveUrl: "https://fraud-check-chi.vercel.app",
     githubUrl: "https://github.com/suresh-ai-lab/fraud-check",
     tags: ["AI Labs", "On-device vision"],
+    kind: "lab",
   },
 ];
 
@@ -97,3 +82,8 @@ export function getWritingPost(slug: string): WritingPost | undefined {
 }
 
 export const publishedPosts = writingPosts.filter((p) => p.status === "published");
+
+export const seriesHubPost = writingPosts.find((p) => p.kind === "series-hub");
+export const companionPosts = writingPosts.filter(
+  (p) => p.kind === "companion" || p.kind === "lab",
+);
