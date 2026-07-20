@@ -81,7 +81,7 @@ export default function FraudCheckTeachingPostPage() {
 
         <section>
           <h2 className="font-[family-name:var(--font-display)] text-2xl font-bold text-ink">
-            What I am teaching you
+            What this lab covers
           </h2>
           <p className="mt-4">You do not need an ML background. Here is the idea in plain English:</p>
           <ol className="mt-4 list-decimal space-y-3 pl-5">
@@ -180,7 +180,7 @@ export default function FraudCheckTeachingPostPage() {
             This is a teaching demo, not a certified exam vendor. The model can
             miss a phone or confuse similar objects. Lighting and camera angle
             change results. Saying that clearly is part of good AI engineering —
-            and part of how I teach.
+            and part of how the lab explains the stack.
           </p>
         </section>
 

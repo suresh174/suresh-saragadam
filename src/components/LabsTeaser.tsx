@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { labs, type LabStatus } from "@/data/labs";
+import { labs, type Lab, type LabStatus } from "@/data/labs";
+import { Reveal } from "@/components/Reveal";
 
 const statusLabel: Record<LabStatus, string> = {
   live: "Live",
@@ -7,30 +8,40 @@ const statusLabel: Record<LabStatus, string> = {
   planned: "Planned",
 };
 
+function labHref(lab: Lab): string | undefined {
+  if (lab.externalUrl) return lab.externalUrl;
+  if (lab.githubUrl) return lab.githubUrl;
+  if (lab.status === "live") return `/labs/${lab.slug}`;
+  if (lab.notesUrl) return lab.notesUrl;
+  return undefined;
+}
+
 export function LabsTeaser() {
   return (
     <section className="px-5 pb-8 sm:px-8">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <Reveal className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="mono-label">AI Labs</p>
             <h2 className="mt-3 max-w-xl font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">
-              Public labs I use to teach.
+              Public labs you can run and learn from.
             </h2>
             <p className="mt-3 max-w-lg text-ink-soft">
-              Start with Fraud Check — a live camera integrity lesson with
-              on-device AI and beginner notes.
+              AI Explorer is the main end-to-end path. Fraud Check stays as a
+              live on-device side lab.
             </p>
           </div>
           <Link href="/labs" className="btn-primary self-start sm:self-auto">
             Browse labs
           </Link>
-        </div>
+        </Reveal>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          {labs.slice(0, 3).map((lab) => {
+        <div className="grid gap-4 md:grid-cols-2">
+          {labs.map((lab, index) => {
+            const href = labHref(lab);
+            const external = Boolean(lab.externalUrl || lab.githubUrl);
             const className =
-              "group rounded-[1.25rem] border border-line bg-white/55 p-6 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-sea/35 hover:bg-white/80";
+              "card-lift group rounded-[1.25rem] border border-line bg-white/55 p-6 backdrop-blur-sm";
             const body = (
               <>
                 <span className="chip">{statusLabel[lab.status]}</span>
@@ -43,36 +54,35 @@ export function LabsTeaser() {
               </>
             );
 
-            if (lab.status === "live" && lab.externalUrl) {
+            if (!href) {
               return (
-                <a
-                  key={lab.slug}
-                  href={lab.externalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={className}
-                >
-                  {body}
-                </a>
+                <Reveal key={lab.slug} delayMs={index * 70}>
+                  <div className={className}>{body}</div>
+                </Reveal>
               );
             }
 
-            if (lab.status === "live") {
+            if (external) {
               return (
-                <Link
-                  key={lab.slug}
-                  href={`/labs/${lab.slug}`}
-                  className={className}
-                >
-                  {body}
-                </Link>
+                <Reveal key={lab.slug} delayMs={index * 70}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={className}
+                  >
+                    {body}
+                  </a>
+                </Reveal>
               );
             }
 
             return (
-              <div key={lab.slug} className={`${className} opacity-80`}>
-                {body}
-              </div>
+              <Reveal key={lab.slug} delayMs={index * 70}>
+                <Link href={href} className={className}>
+                  {body}
+                </Link>
+              </Reveal>
             );
           })}
         </div>

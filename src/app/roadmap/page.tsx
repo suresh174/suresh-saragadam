@@ -17,11 +17,12 @@ export default function RoadmapPage() {
 
       <p className="mono-label mt-10">Roadmap</p>
       <h1 className="mt-3 font-[family-name:var(--font-display)] text-4xl font-extrabold tracking-tight sm:text-5xl">
-        What I&apos;m building next
+        What&apos;s building next
       </h1>
       <p className="mt-5 text-lg leading-relaxed text-ink-soft">
-        A living plan for AI Labs. Now is shipped or shipping. Next is the
-        near-term bet. Later is intentional, not promised.
+        A living plan centered on AI Explorer — one app that grows AI Engineering
+        skills end-to-end. Now is shipping. Next is the near-term bet. Later is
+        intentional, not promised.
       </p>
 
       <div className="mt-12 space-y-8">
