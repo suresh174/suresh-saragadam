@@ -12,9 +12,9 @@ export function NotesTeaser() {
             AI Explorer lessons — Lesson 1 to 20.
           </h2>
           <p className="mt-4 max-w-lg font-light text-ink-soft">
-            A numbered series so beginners never get lost: what you&rsquo;ll
-            learn, how it shows up in the app, what we learned, and a takeaway —
-            then Next lesson →.
+            Prepare the app once, then learn by doing: try it in AI Explorer,
+            change a file, complete a small exercise, hit the checkpoint — Lesson
+            1 through 20.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href={SERIES_HUB_PATH} className="btn-primary inline-flex">

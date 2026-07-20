@@ -127,17 +127,34 @@ export default function HowToFollowPage() {
             How to learn without drowning
           </h2>
           <p className="mt-4">
-            Read <code className="text-sm text-ink">LEARNING_PATH.md</code>. Each part is marked{" "}
-            <code className="text-sm text-ink">done</code> or <code className="text-sm text-ink">partial</code>.
-            Then follow the portfolio{" "}
+            Start with{" "}
+            <a
+              href="https://github.com/suresh-ai-lab/ai-explorer/blob/main/GETTING_STARTED.md"
+              className="nav-link font-semibold text-sea-deep"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GETTING_STARTED.md
+            </a>{" "}
+            (first 30 minutes). Keep{" "}
+            <a
+              href="https://github.com/suresh-ai-lab/ai-explorer/blob/main/docs/PRACTICAL_LABS.md"
+              className="nav-link font-semibold text-sea-deep"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              docs/PRACTICAL_LABS.md
+            </a>{" "}
+            open for click paths. Then follow the portfolio{" "}
             <Link
               href="/writing/ai-explorer-lessons"
               className="nav-link font-semibold text-sea-deep"
             >
               Lesson 1–20 series
             </Link>{" "}
-            — each lesson has what you&rsquo;ll learn, a recap, and a takeaway — and open the matching feature folder in code.
-            Keep <code className="text-sm text-ink">/health</code> green.
+            — each page has try-it steps, build-along files, an exercise, and a
+            checkpoint. Keep <code className="text-sm text-ink">/health</code>{" "}
+            green.
           </p>
         </section>
       </div>

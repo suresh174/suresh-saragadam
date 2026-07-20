@@ -18,7 +18,7 @@ export const writingPosts: WritingPost[] = [
     slug: "ai-explorer-lessons",
     title: "AI Explorer lessons — Lesson 1 to 20",
     excerpt:
-      "Numbered series for beginners: Lesson 1 (talk to an LLM) through Lesson 20 (Docker & CI). Each page has what you’ll learn, a recap, and a takeaway.",
+      "Learn by doing: Getting Started → Lesson 1–20 with try-it click paths, build-along files, exercises, and checkpoints through Docker & CI.",
     date: "2026-07-20",
     dateLabel: "Jul 20, 2026",
     status: "published",
@@ -54,7 +54,7 @@ export const writingPosts: WritingPost[] = [
     slug: "ai-explorer-how-to-follow",
     title: "How to run AI Explorer (setup)",
     excerpt:
-      "Clone the repo, run with Docker or local API + web, set your OpenAI key — then start Lesson 1.",
+      "First 30 minutes: clone, Docker Compose (golden path), health check, first chat — then Lesson 1. Full guide: GETTING_STARTED.md in the repo.",
     date: "2026-07-20",
     dateLabel: "Jul 20, 2026",
     status: "published",

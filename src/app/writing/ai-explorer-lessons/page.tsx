@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
+  GETTING_STARTED_URL,
   GITHUB_REPO,
+  PRACTICAL_LABS_URL,
   aiExplorerLessons,
   laterLessons,
   lessonPath,
@@ -11,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "AI Explorer lessons — Lesson 1 to 20",
   description:
-    "Numbered AI Explorer lesson series: from talking to an LLM through RAG, agents, MCP, guardrails, observability, evals, and Docker.",
+    "Learn by doing: prepare AI Explorer, then follow Lesson 1–20 with click paths, build-along files, exercises, and checkpoints.",
 };
 
 export default function AiExplorerLessonsHubPage() {
@@ -27,51 +29,67 @@ export default function AiExplorerLessonsHubPage() {
       </h1>
       <p className="mt-5 text-lg leading-relaxed text-ink-soft">
         A numbered path through one open-source app — from a basic model call to
-        production habits. Follow in order. Each lesson says what you&rsquo;ll
-        learn, how it shows up in the repo, what you learned, and a clear
-        takeaway.
+        production habits. Each lesson is built to be{" "}
+        <strong className="font-semibold text-ink">done</strong>: see it in the
+        running app, change a real file, complete a small exercise, then hit a
+        checkpoint.
       </p>
 
       <div className="mt-8 rounded-[1.25rem] border border-line bg-white/70 px-6 py-6 text-[1.05rem] leading-relaxed text-ink-soft">
         <h2 className="font-[family-name:var(--font-display)] text-xl font-bold text-ink">
-          Who this is for
-        </h2>
-        <p className="mt-3">
-          Beginners who want AI engineering without getting lost, and engineers
-          who want the seams in context. Plain English first; technical names
-          after.
-        </p>
-        <h2 className="mt-6 font-[family-name:var(--font-display)] text-xl font-bold text-ink">
-          How to follow
+          Learn by doing
         </h2>
         <ol className="mt-3 list-decimal space-y-2 pl-5">
-          <li>Start at Lesson 1 and go in order — each lesson links to the next.</li>
           <li>
-            Clone{" "}
             <a
-              href={GITHUB_REPO}
+              href={GETTING_STARTED_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-sea-deep underline-offset-2 hover:underline"
             >
-              suresh-ai-lab/ai-explorer
+              Getting Started
             </a>{" "}
-            and run Docker Compose or local API + web (see the repo README).
+            — first 30 minutes: clone, Docker Compose, health, first chat.
           </li>
-          <li>Do the “How it shows up in AI Explorer” step once per lesson.</li>
           <li>
-            Read the takeaway before moving on — that is the checkpoint.
+            Start at Lesson 1 and go in order — each page links to the next.
+          </li>
+          <li>
+            Per lesson:{" "}
+            <em>Try it in AI Explorer</em> → <em>Build along</em> →{" "}
+            <em>Exercise</em> → <em>Checkpoint</em> → takeaway.
+          </li>
+          <li>
+            Keep the{" "}
+            <a
+              href={PRACTICAL_LABS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-sea-deep underline-offset-2 hover:underline"
+            >
+              practical lab map
+            </a>{" "}
+            open for exact click paths and file paths.
           </li>
         </ol>
         <p className="mt-4 text-sm">
-          {readyLessons.length} lessons ready · aligned with LEARNING_PATH.md
+          {readyLessons.length} lessons ready · golden path is Docker Compose ·
+          lab strip covers structured / SQL / agent / memory
         </p>
       </div>
 
       <div className="mt-8 flex flex-wrap gap-3">
+        <a
+          href={GETTING_STARTED_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary"
+        >
+          Getting Started →
+        </a>
         <Link
           href={lessonPath(aiExplorerLessons[0].slug)}
-          className="btn-primary"
+          className="btn-secondary"
         >
           Start Lesson 1 →
         </Link>
@@ -92,7 +110,7 @@ export default function AiExplorerLessonsHubPage() {
         Lessons 1–{aiExplorerLessons.length}
       </h2>
       <p className="mt-2 text-ink-soft">
-        Every major done concept on the spine has a lesson page.
+        Every major done concept on the spine has a hands-on lesson page.
       </p>
 
       <ol className="mt-8 space-y-3">
@@ -105,6 +123,7 @@ export default function AiExplorerLessonsHubPage() {
               <div className="flex flex-wrap items-center gap-2">
                 <span className="chip">Lesson {lesson.number}</span>
                 <span className="chip">Ready</span>
+                <span className="chip">{lesson.surface}</span>
               </div>
               <h3 className="mt-2 font-[family-name:var(--font-display)] text-xl font-bold text-ink">
                 {lesson.title}
