@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>19 — Interview Prep</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 19 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="19" id="chk-topic-19" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-19">My notes (saved locally)</label>
+        <textarea id="notes-19" data-notes-for="19" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>19 — Interview Prep</h1>
+<p><strong>Checkpoint:</strong> Answer 5 questions below out loud in 60 sec each. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>Interviews = show you can <strong>think in systems</strong>, not recite papers.</p>
+<p>Pattern: <strong>Short answer → tiny example → tradeoff.</strong></p>
+<hr />
+<h2>Must-know questions (with short answers)</h2>
+<h3>1. What is an LLM?</h3>
+<p>Autocomplete model trained on text to predict next token. At scale it learns language, reasoning patterns, and world knowledge — but not guaranteed truth.</p>
+<h3>2. What is RAG?</h3>
+<p>Retrieve relevant docs from a vector store, inject into prompt, generate answer grounded in those docs. Updates without retraining.</p>
+<h3>3. Embeddings?</h3>
+<p>Dense vectors representing meaning. Similar text → nearby vectors. Used for search and clustering.</p>
+<h3>4. Prompt injection?</h3>
+<p>Attacker hides instructions in user-controlled text to override system behavior. Mitigate with isolation, least privilege, output checks.</p>
+<h3>5. How reduce hallucination?</h3>
+<p>RAG, tool verification, ask model to cite sources, low temperature, eval suite, say "I don't know" training in prompt.</p>
+<h3>6. Agent vs chain?</h3>
+<p>Chain = fixed steps. Agent = LLM decides next tool/step dynamically until task done.</p>
+<h3>7. Fine-tune vs prompt vs RAG?</h3>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Pick</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New facts</td>
+<td>RAG</td>
+</tr>
+<tr>
+<td>Format/behavior</td>
+<td>Prompt → Fine-tune</td>
+</tr>
+<tr>
+<td>Cost at scale</td>
+<td>Fine-tune small model</td>
+</tr>
+</tbody>
+</table>
+<h3>8. How eval LLM apps?</h3>
+<p>Golden Q&amp;A set, retrieval hit rate, LLM-as-judge, human review, online feedback, regression in CI.</p>
+<h3>9. Context window issue?</h3>
+<p>Long chats/docs exceed limit. Fix: chunking, RAG, summarization, sliding window.</p>
+<h3>10. Design doc Q&amp;A bot for 10k PDFs?</h3>
+<pre><code>Upload → parse → chunk → embed → index (async job)
+Query → embed question → retrieve top-k → rerank → prompt → stream answer
+Deploy FastAPI + vector DB + object storage
+Eval set from real questions, monitor cost/latency
+</code></pre>
+<hr />
+<h2>Deep dive — system design template (use in interview)</h2>
+<pre><code>1. Requirements — latency, users, privacy
+2. Data — sources, update frequency
+3. Architecture — API, index, model, cache
+4. Retrieval — chunk size, hybrid search
+5. Generation — model choice, prompt version
+6. Eval — offline + online metrics
+7. Safety — injection, PII, tool limits
+8. Cost — routing, caching
+9. Failure modes — model down, stale index
+10. Rollout — MVP → iterate
+</code></pre>
+<p>Draw boxes while talking. Interviewers care about <strong>tradeoffs</strong>, not perfect diagram.</p>
+<hr />
+<h2>Behavioral (STAR format)</h2>
+<p>Prepare 2 stories:<br />
+- <strong>Shipped</strong> something with deadlines<br />
+- <strong>Debugged</strong> bad model output in prod<br />
+- <strong>Learned</strong> new tool fast (RAG, agents)</p>
+<hr />
+<h2>Coding you might see</h2>
+<ul>
+<li>Chunk text</li>
+<li>Cosine similarity</li>
+<li>Parse JSON from LLM output safely</li>
+<li>Simple FastAPI endpoint</li>
+<li>Retry wrapper for API calls</li>
+</ul>
+<hr />
+<h2>Mini exercise</h2>
+<p>Pick 5 questions above. Record voice answers. Cut anything over 90 seconds.</p></article>
+    <nav class="topic-nav">
+      <span><a href="18-safety-guardrails.html">← 18 Safety & Guardrails</a></span>
+      <span><a href="20-capstone-project.html">20 Capstone Project →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>06 — Deep Learning & PyTorch</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 06 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="06" id="chk-topic-06" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-06">My notes (saved locally)</label>
+        <textarea id="notes-06" data-notes-for="06" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>06 — Deep Learning &amp; PyTorch</h1>
+<p><strong>Checkpoint:</strong> Run a 3-line PyTorch tensor op OR explain what a neuron does. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>Deep learning = many layers of simple math stacked.</p>
+<p><strong>Neuron:</strong> <code>output = activation(weights · inputs + bias)</code><br />
+<strong>Network:</strong> neurons wired in layers<br />
+<strong>Training:</strong> adjust weights to reduce loss</p>
+<p>PyTorch = the toolbox everyone uses (with TensorFlow/JAX as cousins).</p>
+<hr />
+<h2>Tensors in 30 seconds</h2>
+<pre><code class="language-python">import torch
+
+x = torch.tensor([1.0, 2.0, 3.0])
+y = x * 2 + 1
+print(y)  # tensor([3., 5., 7.])
+</code></pre>
+<p>N-dimensional arrays. GPU moves them fast.</p>
+<hr />
+<h2>Tiny network sketch</h2>
+<pre><code class="language-python">import torch.nn as nn
+
+model = nn.Sequential(
+    nn.Linear(10, 64),   # 10 inputs → 64 hidden
+    nn.ReLU(),
+    nn.Linear(64, 2),    # 64 → 2 classes
+)
+</code></pre>
+<p><code>Linear</code> = matrix multiply + bias. <code>ReLU</code> = max(0, x).</p>
+<hr />
+<h2>Training loop (pattern)</h2>
+<pre><code class="language-python">for epoch in range(10):
+    pred = model(X_train)
+    loss = loss_fn(pred, y_train)
+    loss.backward()      # gradients
+    optimizer.step()     # update weights
+    optimizer.zero_grad()
+</code></pre>
+<p>You won't write this for GPT-4. You'll write it for <strong>custom heads</strong> or fine-tune scripts.</p>
+<hr />
+<h2>Deep dive — what transformers added</h2>
+<p>Old NLP: CNNs/RNNs on words.<br />
+Transformers: <strong>self-attention</strong> — every token looks at every other token in one parallel pass.</p>
+<pre><code>Input tokens → Embedding + Positional encoding
+            → Stack of Transformer blocks (attention + FFN)
+            → Linear head → next token probabilities
+</code></pre>
+<p><strong>Pretrain:</strong> predict next token on internet text (billions of params).<br />
+<strong>Inference:</strong> sample tokens one by one (or spec decode for speed).</p>
+<p>As AI engineer you <strong>call</strong> this stack via API. As ML engineer you <strong>train</strong> it.</p>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: What is a forward pass?</strong><br />
+<strong>A:</strong> Input flows through layers to produce output. Backward pass computes gradients for training. At inference you usually only forward pass.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Install PyTorch (<code>pip install torch</code>), create two random tensors shape <code>(3, 4)</code>, multiply with <code>@</code>. Print shape of result.</p></article>
+    <nav class="topic-nav">
+      <span><a href="05-machine-learning-basics.html">← 05 Machine Learning Basics</a></span>
+      <span><a href="07-how-llms-work.html">07 How LLMs Work →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

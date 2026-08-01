@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>01 — What is AI Engineering?</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 01 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="01" id="chk-topic-01" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-01">My notes (saved locally)</label>
+        <textarea id="notes-01" data-notes-for="01" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>01 — What is AI Engineering?</h1>
+<p><strong>Checkpoint:</strong> Explain AI engineer vs ML engineer in one sentence. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>You know ChatGPT? Someone built that <em>experience</em> — not just the model.<br />
+That's AI engineering: <strong>wire models into products people use.</strong></p>
+<p>ML engineer = trains models.<br />
+AI engineer = <strong>ships features</strong> — chat, search, agents, APIs.</p>
+<hr />
+<h2>What you'll actually do day-to-day</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Call LLM APIs</td>
+<td>OpenAI, Anthropic, local Ollama</td>
+</tr>
+<tr>
+<td>Build RAG</td>
+<td>"Ask our docs" bot</td>
+</tr>
+<tr>
+<td>Prompt + eval</td>
+<td>Make answers good, measure them</td>
+</tr>
+<tr>
+<td>Deploy</td>
+<td>Docker, FastAPI, rate limits</td>
+</tr>
+<tr>
+<td>Debug</td>
+<td>Why did it hallucinate?</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Skills stack (rough order)</h2>
+<pre><code>Python → APIs → LLMs → Embeddings → RAG → Agents → Deploy
+</code></pre>
+<p>You don't need to invent transformers. You need to <strong>integrate</strong> them safely.</p>
+<hr />
+<h2>Deep dive — why this role exploded</h2>
+<p>Before 2023, "AI in prod" meant recommendation systems or vision classifiers.<br />
+LLMs changed the game: <strong>natural language became an interface.</strong></p>
+<p>Companies don't want a researcher paper. They want:<br />
+- A support bot on their site<br />
+- Internal search over PDFs<br />
+- Code assistant in their IDE</p>
+<p>The model is 30% of the work. The other 70%:<br />
+- Data pipeline (chunk, embed, index)<br />
+- Guardrails (don't leak secrets)<br />
+- Latency &amp; cost (cache, stream)<br />
+- Monitoring (log prompts, track quality)</p>
+<p>That's the AI engineer job description in practice.</p>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: AI engineer vs ML engineer?</strong><br />
+<strong>A:</strong> ML engineer focuses on training and model architecture. AI engineer focuses on application layer — prompts, RAG, agents, production APIs, and eval — often using off-the-shelf models.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Write 3 AI features you'd add to an app you use daily. For each: model call only, or RAG, or agent?</p></article>
+    <nav class="topic-nav">
+      <span></span>
+      <span><a href="02-setup-your-lab.html">02 Setup Your Lab →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

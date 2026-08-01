@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>10 — Embeddings & Vectors</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 10 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="10" id="chk-topic-10" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-10">My notes (saved locally)</label>
+        <textarea id="notes-10" data-notes-for="10" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>10 — Embeddings &amp; Vectors</h1>
+<p><strong>Checkpoint:</strong> Embed 5 sentences, find which pair is most similar. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>Embedding = turn text into a list of numbers that capture <strong>meaning</strong>.</p>
+<p><code>"king"</code> and <code>"queen"</code> → close vectors<br />
+<code>"king"</code> and <code>"banana"</code> → far apart</p>
+<p>Same language, different words → similar vectors. That's semantic search.</p>
+<hr />
+<h2>Quick API call</h2>
+<pre><code class="language-python">from openai import OpenAI
+
+client = OpenAI()
+resp = client.embeddings.create(
+    model=&quot;text-embedding-3-small&quot;,
+    input=&quot;The quick brown fox&quot;,
+)
+vector = resp.data[0].embedding  # list of ~1536 floats
+</code></pre>
+<hr />
+<h2>Similarity search flow</h2>
+<pre><code>1. Embed all documents (once, store)
+2. Embed user question (each query)
+3. Compare vectors (cosine similarity)
+4. Return top 5 docs
+</code></pre>
+<hr />
+<h2>Vector DB options</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chroma</td>
+<td>Easy local</td>
+</tr>
+<tr>
+<td>Pinecone</td>
+<td>Managed cloud</td>
+</tr>
+<tr>
+<td>pgvector</td>
+<td>Postgres extension</td>
+</tr>
+<tr>
+<td>FAISS</td>
+<td>Facebook, in-memory</td>
+</tr>
+</tbody>
+</table>
+<p>All do: store vectors + nearest neighbor search.</p>
+<hr />
+<h2>Deep dive — embedding model choice</h2>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Tradeoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dimensions</td>
+<td>Higher → more accurate, more storage</td>
+</tr>
+<tr>
+<td>Model size</td>
+<td>Better model → better retrieval</td>
+</tr>
+<tr>
+<td>Domain</td>
+<td>Code/docs may need specialized embedders</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Normalize</strong> vectors before dot product = cosine similarity.</p>
+<h3>Hybrid search</h3>
+<p>Sometimes combine:<br />
+- <strong>Vector</strong> — semantic ("automobile" matches "car")<br />
+- <strong>Keyword</strong> — exact match (SKU numbers, names)</p>
+<p>Production search often uses both (BM25 + vectors).</p>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: Why not just keyword search?</strong><br />
+<strong>A:</strong> Keywords miss synonyms and paraphrases. Embeddings capture semantic similarity. Best systems often blend both.</p>
+<hr />
+<h2>Mini exercise</h2>
+<pre><code class="language-python">sentences = [
+    &quot;How do I reset my password?&quot;,
+    &quot;Password recovery steps&quot;,
+    &quot;The weather is nice today&quot;,
+]
+# Embed all, compute cosine between query and each, print best match.
+</code></pre></article>
+    <nav class="topic-nav">
+      <span><a href="09-prompt-engineering.html">← 09 Prompt Engineering</a></span>
+      <span><a href="11-rag-retrieval-augmented-generation.html">11 RAG →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>15 — Evaluation & Testing</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 15 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="15" id="chk-topic-15" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-15">My notes (saved locally)</label>
+        <textarea id="notes-15" data-notes-for="15" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>15 — Evaluation &amp; Testing</h1>
+<p><strong>Checkpoint:</strong> Define one metric for retrieval and one for generation. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>"Vibes" don't ship. You need <strong>scores</strong>.</p>
+<p>Before launch ask:<br />
+- Is retrieval finding the right doc?<br />
+- Is the answer correct?<br />
+- Is it safe?</p>
+<hr />
+<h2>Eval layers</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Retrieval</td>
+<td>Right chunk in top-k?</td>
+</tr>
+<tr>
+<td>Generation</td>
+<td>Answer matches truth?</td>
+</tr>
+<tr>
+<td>End-to-end</td>
+<td>User task succeeded?</td>
+</tr>
+<tr>
+<td>Safety</td>
+<td>Harmful / leaked PII?</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Metrics cheat sheet</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exact match</td>
+<td>Structured output</td>
+</tr>
+<tr>
+<td>F1 / accuracy</td>
+<td>Classification</td>
+</tr>
+<tr>
+<td>BLEU/ROUGE</td>
+<td>Translation/summary (weak for LLMs)</td>
+</tr>
+<tr>
+<td>LLM-as-judge</td>
+<td>Compare answers to rubric</td>
+</tr>
+<tr>
+<td>Human eval</td>
+<td>Gold standard, expensive</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LLM-as-judge:</strong> Strong model scores weaker model's output against criteria.</p>
+<hr />
+<h2>Minimal eval harness</h2>
+<pre><code class="language-python">cases = [
+    {&quot;question&quot;: &quot;Reset password?&quot;, &quot;expected_contains&quot;: &quot;settings&quot;},
+    {&quot;question&quot;: &quot;CEO salary?&quot;, &quot;expected_contains&quot;: &quot;don't know&quot;},
+]
+
+for c in cases:
+    answer = rag_pipeline(c[&quot;question&quot;])
+    ok = c[&quot;expected_contains&quot;].lower() in answer.lower()
+    print(c[&quot;question&quot;], &quot;PASS&quot; if ok else &quot;FAIL&quot;)
+</code></pre>
+<p>Grow this to 100+ cases from real user logs.</p>
+<hr />
+<h2>Deep dive — production eval strategy</h2>
+<pre><code>Offline (CI):
+  - Golden dataset, regression on every prompt change
+  - Block deploy if score drops &gt; 5%
+
+Online (prod):
+  - Log prompts + outputs (privacy-safe)
+  - Thumbs up/down, implicit signals
+  - Sample for human review weekly
+
+Red team:
+  - Prompt injection attempts
+  - Jailbreak prompts
+  - Edge cases (empty input, huge input)
+</code></pre>
+<h3>RAG-specific</h3>
+<ul>
+<li><strong>Hit rate@k</strong> — % queries where gold doc in top k</li>
+<li><strong>MRR</strong> — rank of first correct doc</li>
+<li><strong>Faithfulness</strong> — answer only from context (LLM judge)</li>
+</ul>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: How do you eval an LLM app?</strong><br />
+<strong>A:</strong> Layered: retrieval metrics on golden Q→doc pairs, generation checks (correctness, faithfulness), end-to-end task success, plus safety regression suite. Mix automated + periodic human review.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Write 10 test cases for a FAQ bot. Include 2 trick questions where answer should be "I don't know."</p></article>
+    <nav class="topic-nav">
+      <span><a href="14-fine-tuning.html">← 14 Fine-Tuning</a></span>
+      <span><a href="16-production-and-deployment.html">16 Production & Deployment →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

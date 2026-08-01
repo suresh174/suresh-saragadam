@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>08 — Tokens & Context</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 08 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="08" id="chk-topic-08" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-08">My notes (saved locally)</label>
+        <textarea id="notes-08" data-notes-for="08" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>08 — Tokens &amp; Context</h1>
+<p><strong>Checkpoint:</strong> Know your model's context limit and price per 1M tokens. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>Models don't read "words." They read <strong>tokens</strong> — chunks of text.</p>
+<p><code>"ChatGPT"</code> might be 1 token. <code>"unbelievable"</code> might be 2–3.</p>
+<p><strong>Context window</strong> = max tokens in one request (input + output).<br />
+Example: 128k context ≈ ~100 pages of text — but attention cost grows.</p>
+<hr />
+<h2>Why it matters for you</h2>
+<ol>
+<li><strong>Billing</strong> — charged per token</li>
+<li><strong>Truncation</strong> — long docs get cut → bad answers</li>
+<li><strong>RAG</strong> — you must fit retrieved chunks + question in window</li>
+</ol>
+<hr />
+<h2>Count tokens in Python</h2>
+<pre><code class="language-python">import tiktoken
+
+enc = tiktoken.encoding_for_model(&quot;gpt-4o-mini&quot;)
+text = &quot;Hello, how many tokens am I?&quot;
+tokens = enc.encode(text)
+print(len(tokens))
+</code></pre>
+<hr />
+<h2>Context budget template</h2>
+<pre><code>Total context:     128,000 tokens
+− System prompt:     500
+− User question:     200
+− Retrieved chunks:  8,000
+− Reserved for reply: 2,000
+= Available for more chunks: ~119,300
+</code></pre>
+<p>Plan this in every RAG design.</p>
+<hr />
+<h2>Deep dive — context rot &amp; long context</h2>
+<p>Models can <em>accept</em> 128k tokens but <strong>quality</strong> may drop in the middle ("lost in the middle" research). Don't dump whole books — <strong>retrieve</strong> the right parts.</p>
+<p>Techniques:<br />
+- <strong>Chunking</strong> — split docs into passages<br />
+- <strong>Summarize</strong> — compress history in long chats<br />
+- <strong>Sliding window</strong> — only last N messages</p>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: User uploads 500-page PDF. Your approach?</strong><br />
+<strong>A:</strong> Chunk, embed, index. On query, retrieve top-k relevant chunks only. Never stuff full PDF in prompt. Optionally hierarchical summarize for overview questions.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Pick a model on OpenAI pricing page. Calculate cost for 1000 users × 10 questions/day × 2000 tokens each.</p></article>
+    <nav class="topic-nav">
+      <span><a href="07-how-llms-work.html">← 07 How LLMs Work</a></span>
+      <span><a href="09-prompt-engineering.html">09 Prompt Engineering →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

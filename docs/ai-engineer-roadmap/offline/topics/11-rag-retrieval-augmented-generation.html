@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>11 — RAG</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 11 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="11" id="chk-topic-11" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-11">My notes (saved locally)</label>
+        <textarea id="notes-11" data-notes-for="11" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>11 — RAG (Retrieval Augmented Generation)</h1>
+<p><strong>Checkpoint:</strong> Explain RAG in 4 steps without notes. Build a toy version or use AI Explorer. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>Problem: LLM doesn't know your private docs.<br />
+Fix: <strong>Fetch relevant chunks → paste into prompt → model answers from them.</strong></p>
+<p>That's RAG. Retrieval + Generation.</p>
+<hr />
+<h2>The 4-step pipeline</h2>
+<pre><code>Index (offline):
+  Documents → Chunk → Embed → Store in vector DB
+
+Query (online):
+  Question → Embed → Retrieve top-k → Build prompt → LLM → Answer
+</code></pre>
+<hr />
+<h2>Chunking matters</h2>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Size hint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fixed size</td>
+<td>500–1000 tokens</td>
+</tr>
+<tr>
+<td>By paragraph</td>
+<td>Natural breaks</td>
+</tr>
+<tr>
+<td>By heading</td>
+<td>For markdown/docs</td>
+</tr>
+</tbody>
+</table>
+<p>Too small → lost context. Too big → noisy retrieval.</p>
+<pre><code class="language-python">def chunk(text: str, size: int = 500, overlap: int = 50) -&gt; list[str]:
+    chunks = []
+    start = 0
+    while start &lt; len(text):
+        chunks.append(text[start:start + size])
+        start += size - overlap
+    return chunks
+</code></pre>
+<hr />
+<h2>RAG prompt template</h2>
+<pre><code class="language-text">Use ONLY the context below. If answer not in context, say &quot;I don't know.&quot;
+
+Context:
+---
+{chunk_1}
+---
+{chunk_2}
+---
+
+Question: {user_question}
+</code></pre>
+<hr />
+<h2>Deep dive — RAG failure modes &amp; fixes</h2>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wrong retrieval</td>
+<td>Bad chunks/embeddings</td>
+<td>Tune chunk size, hybrid search</td>
+</tr>
+<tr>
+<td>Answer ignores context</td>
+<td>Weak prompt</td>
+<td>Strong system rules + cite sources</td>
+</tr>
+<tr>
+<td>Stale data</td>
+<td>Index not updated</td>
+<td>Re-index pipeline on doc changes</td>
+</tr>
+<tr>
+<td>Slow</td>
+<td>Big index, no cache</td>
+<td>ANN indexes, cache frequent queries</td>
+</tr>
+</tbody>
+</table>
+<h3>Advanced patterns</h3>
+<ul>
+<li><strong>Re-ranking</strong> — retrieve 20, rerank with cross-encoder, use top 5</li>
+<li><strong>Query transformation</strong> — LLM rewrites user question for better search</li>
+<li><strong>Multi-hop</strong> — agent retrieves multiple times</li>
+</ul>
+<h3>Eval RAG</h3>
+<p>Measure:<br />
+- Retrieval: did right chunk appear in top-k?<br />
+- Generation: is answer correct given context?<br />
+- End-to-end: user satisfaction / human eval</p>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: RAG vs fine-tuning for company knowledge?</strong><br />
+<strong>A:</strong> RAG for dynamic knowledge, cite sources, cheaper updates. Fine-tune for style/behavior or when retrieval isn't enough. Often both.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Take 3 markdown files. Chunk, embed (or mock vectors), store in dict. Query "how do I deploy?" — return best chunk.</p>
+<p><strong>Hands-on:</strong> <a href="https://github.com/suresh-ai-lab/ai-explorer">AI Explorer RAG lessons</a></p></article>
+    <nav class="topic-nav">
+      <span><a href="10-embeddings-and-vectors.html">← 10 Embeddings & Vectors</a></span>
+      <span><a href="12-function-calling-and-tools.html">12 Function Calling & Tools →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

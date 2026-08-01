@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>13 — AI Agents</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 13 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="13" id="chk-topic-13" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-13">My notes (saved locally)</label>
+        <textarea id="notes-13" data-notes-for="13" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>13 — AI Agents</h1>
+<p><strong>Checkpoint:</strong> Name the 4 steps in an agent loop. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>Chatbot = one question, one answer.<br />
+Agent = <strong>multi-step</strong> — plan, use tools, check, repeat.</p>
+<p>Like a junior dev with API access: "Search docs → read file → write summary → email user."</p>
+<hr />
+<h2>Agent loop</h2>
+<pre><code>1. Observe  — user goal + current state
+2. Think    — what next? (LLM)
+3. Act      — tool call or final answer
+4. Repeat   — until done or max steps
+</code></pre>
+<hr />
+<h2>Simple agent pseudocode</h2>
+<pre><code class="language-python">MAX_STEPS = 10
+messages = [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: goal}]
+
+for _ in range(MAX_STEPS):
+    response = llm(messages, tools=TOOLS)
+    if response.has_tool_calls:
+        for call in response.tool_calls:
+            result = run_tool(call)
+            messages.append(tool_result(call, result))
+    else:
+        return response.text  # done
+</code></pre>
+<hr />
+<h2>Agent vs workflow</h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workflow</td>
+<td>Fixed steps (ETL, pipelines)</td>
+</tr>
+<tr>
+<td>Agent</td>
+<td>Open-ended goals, dynamic tools</td>
+</tr>
+</tbody>
+</table>
+<p>Don't agent everything. Deterministic workflows are cheaper and debuggable.</p>
+<hr />
+<h2>Deep dive — agent frameworks</h2>
+<table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Style</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LangChain</td>
+<td>Chains + agents</td>
+</tr>
+<tr>
+<td>LlamaIndex</td>
+<td>Data + agents</td>
+</tr>
+<tr>
+<td>CrewAI</td>
+<td>Multi-agent roles</td>
+</tr>
+<tr>
+<td>Raw loop</td>
+<td>You own it — best for learning</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ReAct</strong> pattern: Reason + Act in text — <code>"Thought: I need weather. Action: get_weather(London)"</code></p>
+<h3>Failure modes</h3>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Infinite loop</td>
+<td>Max steps, stop conditions</td>
+</tr>
+<tr>
+<td>Wrong tool</td>
+<td>Better descriptions, fewer tools</td>
+</tr>
+<tr>
+<td>Cost explosion</td>
+<td>Smaller model for planning</td>
+</tr>
+<tr>
+<td>Unsafe actions</td>
+<td>Human approval for writes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: What's the difference between RAG and an agent?</strong><br />
+<strong>A:</strong> RAG is retrieve-then-generate, usually one shot. Agent is orchestration loop with tools and multiple LLM calls until task complete.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Design an agent that books a meeting: list 3 tools, max 5 steps, what happens if calendar API fails?</p></article>
+    <nav class="topic-nav">
+      <span><a href="12-function-calling-and-tools.html">← 12 Function Calling & Tools</a></span>
+      <span><a href="14-fine-tuning.html">14 Fine-Tuning →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

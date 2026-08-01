@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>17 — Cost & Performance</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 17 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="17" id="chk-topic-17" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-17">My notes (saved locally)</label>
+        <textarea id="notes-17" data-notes-for="17" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>17 — Cost &amp; Performance</h1>
+<p><strong>Checkpoint:</strong> Name 3 ways to cut LLM cost without killing quality. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>Tokens = money. Slow = users leave.</p>
+<p>Your job: <strong>fast enough, cheap enough, good enough.</strong></p>
+<hr />
+<h2>Cost levers</h2>
+<table>
+<thead>
+<tr>
+<th>Lever</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Smaller model</td>
+<td>10x cheaper for simple tasks</td>
+</tr>
+<tr>
+<td>Shorter prompts</td>
+<td>Fewer input tokens</td>
+</tr>
+<tr>
+<td>Cache</td>
+<td>Same question → no API call</td>
+</tr>
+<tr>
+<td>Batch embed</td>
+<td>Index docs in batches</td>
+</tr>
+<tr>
+<td>Route by task</td>
+<td>GPT-4o for hard, mini for easy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Caching pattern</h2>
+<pre><code class="language-python">import hashlib
+
+def cache_key(prompt: str) -&gt; str:
+    return hashlib.sha256(prompt.encode()).hexdigest()
+
+# Redis: get(key) or call LLM and set(key, ttl=3600)
+</code></pre>
+<p>Semantic cache: embed question, if similar past question → reuse answer.</p>
+<hr />
+<h2>Performance levers</h2>
+<table>
+<thead>
+<tr>
+<th>Lever</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Streaming</td>
+<td>Show tokens as they arrive</td>
+</tr>
+<tr>
+<td>Async</td>
+<td>Parallel retrieve + prep</td>
+</tr>
+<tr>
+<td>ANN index</td>
+<td>Fast vector search at scale</td>
+</tr>
+<tr>
+<td>Speculative decode</td>
+<td>Faster generation (provider-side)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Deep dive — model routing</h2>
+<pre><code>Classifier (cheap): &quot;Is this billing, tech, or sales?&quot;
+  → billing → fine-tuned small model
+  → tech → RAG + gpt-4o-mini
+  → complex → gpt-4o
+</code></pre>
+<p>Measure quality per route. Don't over-route to expensive model.</p>
+<h3>Token budget review (monthly)</h3>
+<ol>
+<li>Top 10 longest prompts</li>
+<li>Top 10 most frequent queries (cache these)</li>
+<li>Avg tokens in vs out</li>
+<li>Failed retries (wasted spend)</li>
+</ol>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: LLM app is too slow. Debug steps?</strong><br />
+<strong>A:</strong> Profile stages (embed, retrieve, generate). Stream UI. Shrink context. Smaller model. Cache. Parallelize retrieval. Check network/regions. Consider edge caching for static RAG chunks.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Estimate monthly cost: 50k requests, 1500 input + 500 output tokens, gpt-4o-mini pricing. Then halve with caching 30% hits.</p></article>
+    <nav class="topic-nav">
+      <span><a href="16-production-and-deployment.html">← 16 Production & Deployment</a></span>
+      <span><a href="18-safety-guardrails.html">18 Safety & Guardrails →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

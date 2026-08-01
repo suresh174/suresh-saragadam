@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>03 — Python for AI</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 03 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="03" id="chk-topic-03" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-03">My notes (saved locally)</label>
+        <textarea id="notes-03" data-notes-for="03" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>03 — Python for AI</h1>
+<p><strong>Checkpoint:</strong> Write a function that chunks a string into 100-char pieces. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>AI code is 90% Python. You don't need everything — just these:</p>
+<ul>
+<li>Lists &amp; dicts (data everywhere)</li>
+<li>Functions &amp; classes (organize logic)</li>
+<li><code>async</code>/<code>await</code> (fast APIs)</li>
+<li><code>pip</code> + venv (dependencies)</li>
+<li>JSON (API payloads)</li>
+</ul>
+<hr />
+<h2>Patterns you'll copy-paste daily</h2>
+<h3>Dict access safe</h3>
+<pre><code class="language-python">config = {&quot;model&quot;: &quot;gpt-4o-mini&quot;, &quot;temp&quot;: 0.7}
+model = config.get(&quot;model&quot;, &quot;gpt-4o-mini&quot;)
+</code></pre>
+<h3>List comprehension</h3>
+<pre><code class="language-python">texts = [&quot;hello&quot;, &quot;world&quot;]
+upper = [t.upper() for t in texts]
+</code></pre>
+<h3>Read a file</h3>
+<pre><code class="language-python">from pathlib import Path
+content = Path(&quot;doc.txt&quot;).read_text(encoding=&quot;utf-8&quot;)
+</code></pre>
+<h3>Async HTTP (FastAPI style)</h3>
+<pre><code class="language-python">import httpx
+
+async def fetch(url: str) -&gt; str:
+    async with httpx.AsyncClient() as client:
+        r = await client.get(url)
+        return r.text
+</code></pre>
+<hr />
+<h2>Type hints — interview gold</h2>
+<pre><code class="language-python">def embed_texts(texts: list[str]) -&gt; list[list[float]]:
+    ...
+</code></pre>
+<p>Shows you care about contracts. Pydantic uses this everywhere.</p>
+<hr />
+<h2>Deep dive — why async matters for AI apps</h2>
+<p>One user chat = multiple waits:<br />
+- Call embedding API<br />
+- Query vector DB<br />
+- Call LLM (slow — 2–30 sec)</p>
+<p>Sync code blocks everything. Async lets your server handle other users while one waits on OpenAI.</p>
+<p>FastAPI + <code>async def</code> is the standard stack.</p>
+<hr />
+<h2>Libraries map</h2>
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openai</code></td>
+<td>LLM API</td>
+</tr>
+<tr>
+<td><code>fastapi</code></td>
+<td>HTTP API</td>
+</tr>
+<tr>
+<td><code>pydantic</code></td>
+<td>Validate request bodies</td>
+</tr>
+<tr>
+<td><code>numpy</code></td>
+<td>Vector math</td>
+</tr>
+<tr>
+<td><code>tiktoken</code></td>
+<td>Count tokens</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: Why Pydantic?</strong><br />
+<strong>A:</strong> Validates and parses incoming JSON at the boundary. Bad requests fail before they hit your LLM logic — saves money and bugs.</p>
+<hr />
+<h2>Mini exercise</h2>
+<pre><code class="language-python">def chunk_text(text: str, size: int = 100) -&gt; list[str]:
+    # your code: split text into chunks of `size` chars
+    pass
+</code></pre>
+<p>Test with a 250-char string → expect 3 chunks.</p></article>
+    <nav class="topic-nav">
+      <span><a href="02-setup-your-lab.html">← 02 Setup Your Lab</a></span>
+      <span><a href="04-math-you-actually-need.html">04 Math You Actually Need →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

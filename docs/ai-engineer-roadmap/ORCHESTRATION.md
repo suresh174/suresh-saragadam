@@ -9,6 +9,18 @@
 
 ---
 
+## Offline pack (links + progress tracking)
+
+No internet? Use the **offline HTML bundle** — click between topics, tick checkboxes, save notes. Progress stays on your device (export/import JSON to move devices).
+
+1. Download: [ai-engineer-roadmap-offline.zip](https://github.com/suresh174/suresh-saragadam/raw/cursor/ai-engineer-learning-d221/docs/ai-engineer-roadmap-offline.zip)
+2. Unzip → open `offline/index.html`
+3. Tick topics, add notes, **Export progress** when switching laptop/phone
+
+See `offline/README.md` in the zip for details.
+
+---
+
 ## Phase 0 — Start here
 
 - [ ] [01 — What is AI Engineering?](01-what-is-ai-engineering.md) — job vs ML researcher, what you'll actually build

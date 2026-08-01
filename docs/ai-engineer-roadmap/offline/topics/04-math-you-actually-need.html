@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>04 — Math You Actually Need</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 04 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="04" id="chk-topic-04" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-04">My notes (saved locally)</label>
+        <textarea id="notes-04" data-notes-for="04" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>04 — Math You Actually Need</h1>
+<p><strong>Checkpoint:</strong> Compute dot product of two 3D vectors by hand or in NumPy. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>You won't derive backprop on paper. You need:</p>
+<ul>
+<li><strong>Vectors</strong> — embeddings are long lists of numbers</li>
+<li><strong>Dot product</strong> — measures similarity</li>
+<li><strong>Softmax</strong> — turns scores into probabilities (attention)</li>
+<li><strong>Gradient</strong> — "which direction improves the loss" (training intuition)</li>
+</ul>
+<p>That's 80% of interview math for AI engineers.</p>
+<hr />
+<h2>Vectors = lists with meaning</h2>
+<pre><code class="language-python">import numpy as np
+
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+
+# Dot product — related to similarity
+dot = np.dot(a, b)  # 1*4 + 2*5 + 3*6 = 32
+</code></pre>
+<p>Embeddings: <code>["cat", "dog"]</code> might be vectors in 1536 dimensions. Similar words → similar direction.</p>
+<hr />
+<h2>Cosine similarity (the one RAG uses)</h2>
+<pre><code class="language-python">def cosine(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+</code></pre>
+<p>Score near <strong>1</strong> = very similar. Near <strong>0</strong> = unrelated.</p>
+<hr />
+<h2>Softmax — intuition</h2>
+<p>Input: raw scores <code>[2, 1, 0.1]</code><br />
+Output: probabilities that sum to 1 → <code>[0.66, 0.24, 0.10]</code></p>
+<p>LLMs use this at every token to pick the next word.</p>
+<hr />
+<h2>Deep dive — why dot product shows up everywhere</h2>
+<p><strong>Attention:</strong> Query dot Key → how much to focus on each token.<br />
+<strong>Embeddings:</strong> Query doc dot stored vectors → retrieval ranking.<br />
+<strong>Loss:</strong> Compare predicted vs true distribution.</p>
+<p>One operation. Many names. Learn the intuition once.</p>
+<h3>Matrix multiply (one line)</h3>
+<p><code>Y = X @ W</code> — batch of vectors times weight matrix. GPUs are built for this. Transformers are stacks of these + softmax.</p>
+<p>You don't implement it. You know <strong>it's linear algebra at scale</strong>.</p>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: How does semantic search work mathematically?</strong><br />
+<strong>A:</strong> Embed query and documents into vectors. Rank documents by cosine similarity (or dot product on normalized vectors). Return top-k.</p>
+<hr />
+<h2>Mini exercise</h2>
+<pre><code class="language-python">query = np.array([0.1, 0.9, 0.0])
+docs = [
+    np.array([0.2, 0.8, 0.1]),
+    np.array([0.9, 0.1, 0.0]),
+]
+# Which doc matches query? Print index with highest cosine.
+</code></pre></article>
+    <nav class="topic-nav">
+      <span><a href="03-python-for-ai.html">← 03 Python for AI</a></span>
+      <span><a href="05-machine-learning-basics.html">05 Machine Learning Basics →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

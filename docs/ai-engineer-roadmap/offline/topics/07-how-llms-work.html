@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>07 — How LLMs Work</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 07 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="07" id="chk-topic-07" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-07">My notes (saved locally)</label>
+        <textarea id="notes-07" data-notes-for="07" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>07 — How LLMs Work</h1>
+<p><strong>Checkpoint:</strong> Draw "text in → tokens → transformer → text out" on paper. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>LLM = autocomplete at super scale.</p>
+<p>Feed: <code>"The capital of France is"</code><br />
+Model predicts: <code>" Paris"</code> (then next token, then next…)</p>
+<p>It read billions of sentences first (pretraining). It didn't "look up" Paris — it learned the pattern.</p>
+<hr />
+<h2>Key pieces</h2>
+<table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tokenizer</td>
+<td>Text → token IDs</td>
+</tr>
+<tr>
+<td>Embedding layer</td>
+<td>IDs → vectors</td>
+</tr>
+<tr>
+<td>Transformer blocks</td>
+<td>Attention + feed-forward</td>
+</tr>
+<tr>
+<td>Output head</td>
+<td>Vectors → vocab probabilities</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Pretrain vs inference</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pretrain</td>
+<td>Learn language from huge corpus (expensive, once)</td>
+</tr>
+<tr>
+<td>Inference</td>
+<td>Generate answers for users (you pay per token)</td>
+</tr>
+<tr>
+<td>Fine-tune</td>
+<td>Extra training on your data (optional)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Temperature &amp; sampling</h2>
+<ul>
+<li><strong>Temp 0</strong> — deterministic, same answer each time</li>
+<li><strong>Temp 0.7</strong> — creative, varied</li>
+<li><strong>Top-p</strong> — only sample from top probability mass</li>
+</ul>
+<p>Prod support bot → low temp. Creative writing → higher.</p>
+<hr />
+<h2>Deep dive — transformer attention (readable version)</h2>
+<p>Each token asks: <em>"Which other tokens should I pay attention to?"</em></p>
+<p>Example: In <code>"The cat sat on the mat because it was tired"</code> — <strong>it</strong> should link to <strong>cat</strong>.</p>
+<p>Attention computes weights between all pairs of tokens in the context window. Stacked 32–80+ layers → deep representations.</p>
+<p><strong>Why scale matters:</strong> More params + more data → better general language ability. That's the GPT jump.</p>
+<h3>Open weights vs API</h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API (OpenAI, etc.)</td>
+<td>Fast, best models</td>
+<td>Cost, data policy</td>
+</tr>
+<tr>
+<td>Local (Llama, Mistral)</td>
+<td>Control, privacy</td>
+<td>GPU, ops burden</td>
+</tr>
+</tbody>
+</table>
+<p>AI engineers pick per product constraints.</p>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: Why do LLMs hallucinate?</strong><br />
+<strong>A:</strong> They're trained to predict plausible text, not verify facts. No guaranteed grounding unless you add RAG, tools, or explicit retrieval.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Open <a href="https://tiktokenizer.vercel.app">tiktokenizer.vercel.app</a>. Paste a paragraph. Note token count vs word count.</p></article>
+    <nav class="topic-nav">
+      <span><a href="06-deep-learning-and-pytorch.html">← 06 Deep Learning & PyTorch</a></span>
+      <span><a href="08-tokens-and-context.html">08 Tokens & Context →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

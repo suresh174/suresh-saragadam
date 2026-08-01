@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>20 — Capstone Project</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 20 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="20" id="chk-topic-20" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-20">My notes (saved locally)</label>
+        <textarea id="notes-20" data-notes-for="20" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>20 — Capstone Project</h1>
+<p><strong>Checkpoint:</strong> GitHub repo live + demo video or README screenshot. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>One project beats ten tutorials.</p>
+<p>Build this: <strong>"Company Brain"</strong> — ask questions over your docs with citations.</p>
+<p>If you finish this, you're employable at junior–mid AI engineer level.</p>
+<hr />
+<h2>What you're building</h2>
+<pre><code>┌─────────────┐     ┌──────────────┐     ┌─────────────┐
+│  Web UI     │────▶│  FastAPI     │────▶│  OpenAI     │
+│  (chat)     │     │  + RAG       │     │  API        │
+└─────────────┘     └──────┬───────┘     └─────────────┘
+                           │
+                    ┌──────▼───────┐
+                    │ Vector DB    │
+                    │ (Chroma)     │
+                    └──────────────┘
+</code></pre>
+<hr />
+<h2>MVP features (week 1)</h2>
+<ul>
+<li>[ ] Upload PDF/markdown</li>
+<li>[ ] Chunk + embed + store</li>
+<li>[ ] Chat: question → retrieve → answer with [1][2] citations</li>
+<li>[ ] Stream responses</li>
+<li>[ ] <code>.env</code> for keys</li>
+</ul>
+<hr />
+<h2>Pro features (week 2)</h2>
+<ul>
+<li>[ ] Eval script (10 golden questions)</li>
+<li>[ ] <code>/health</code> + basic auth or API key</li>
+<li>[ ] Docker Compose (api + db + web)</li>
+<li>[ ] Log token usage per request</li>
+<li>[ ] "I don't know" when context empty</li>
+</ul>
+<hr />
+<h2>Stretch (interview flex)</h2>
+<ul>
+<li>[ ] Agent: <code>search_docs</code> + <code>summarize</code> tools</li>
+<li>[ ] Hybrid search (keyword + vector)</li>
+<li>[ ] Rate limit per IP</li>
+<li>[ ] Deploy to Railway / Fly.io / AWS</li>
+</ul>
+<hr />
+<h2>Deep dive — implementation order</h2>
+<h3>Day 1–2: Core RAG</h3>
+<pre><code class="language-bash">pip install fastapi uvicorn openai chromadb python-multipart
+</code></pre>
+<ol>
+<li><code>ingest.py</code> — load files, chunk, embed, upsert</li>
+<li><code>retrieve.py</code> — query → top 5 chunks</li>
+<li><code>chat.py</code> — build prompt, call LLM</li>
+</ol>
+<h3>Day 3: API</h3>
+<ul>
+<li><code>POST /ingest</code> — upload file</li>
+<li><code>POST /chat</code> — message + stream</li>
+<li><code>GET /health</code></li>
+</ul>
+<h3>Day 4: UI</h3>
+<p>Simple HTML or React: file upload + chat window. Or use AI Explorer web patterns.</p>
+<h3>Day 5: Eval + Docker</h3>
+<ul>
+<li><code>eval/run.py</code> — pass rate on golden set</li>
+<li><code>docker-compose.yml</code> — one command start</li>
+</ul>
+<h3>Day 6–7: Polish</h3>
+<p>README with:<br />
+- Architecture diagram<br />
+- Setup steps<br />
+- Cost estimate<br />
+- Known limitations<br />
+- Demo GIF</p>
+<hr />
+<h2>README template</h2>
+<pre><code class="language-markdown"># Company Brain
+
+RAG chat over private documents with citations.
+
+## Stack
+FastAPI · Chroma · OpenAI · Docker
+
+## Quick start
+docker compose up
+open http://localhost:3000
+
+## Eval
+python eval/run.py  # 87% pass rate on 50 cases
+
+## Architecture
+[diagram]
+
+## What I learned
+- Chunk size 800 worked best for our PDFs
+- Hybrid search +2% retrieval hit rate
+</code></pre>
+<hr />
+<h2>How this maps to roadmap</h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>In project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>All code</td>
+</tr>
+<tr>
+<td>Embeddings</td>
+<td>Index + search</td>
+</tr>
+<tr>
+<td>RAG</td>
+<td>Core feature</td>
+</tr>
+<tr>
+<td>Prompting</td>
+<td>System template</td>
+</tr>
+<tr>
+<td>Tools</td>
+<td>Stretch agent</td>
+</tr>
+<tr>
+<td>Eval</td>
+<td>Golden set</td>
+</tr>
+<tr>
+<td>Production</td>
+<td>Docker, API, logs</td>
+</tr>
+<tr>
+<td>Safety</td>
+<td>Input limits, no secrets in prompt</td>
+</tr>
+<tr>
+<td>Interview</td>
+<td>You explain this repo</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Alternative capstone ideas</h2>
+<p>Pick one if Company Brain bores you:</p>
+<ol>
+<li><strong>Support ticket classifier</strong> — fine-tune or few-shot + eval</li>
+<li><strong>Code review bot</strong> — PR diff → comments (watch cost)</li>
+<li><strong>Meeting agent</strong> — transcribe → action items → email tool</li>
+</ol>
+<p>Same rules: API, eval, README, deploy.</p>
+<hr />
+<h2>Final tick</h2>
+<p>When all boxes in <a href="../index.html">ORCHESTRATION.md</a> are checked and capstone is on GitHub — <strong>you're an AI engineer.</strong> Go apply.</p>
+<p><strong>Pair with:</strong> <a href="https://github.com/suresh-ai-lab/ai-explorer">AI Explorer</a> for guided hands-on labs.</p></article>
+    <nav class="topic-nav">
+      <span><a href="19-interview-prep.html">← 19 Interview Prep</a></span>
+      <span></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

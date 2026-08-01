@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>05 — Machine Learning Basics</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 05 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="05" id="chk-topic-05" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-05">My notes (saved locally)</label>
+        <textarea id="notes-05" data-notes-for="05" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>05 — Machine Learning Basics</h1>
+<p><strong>Checkpoint:</strong> Explain train/validation/test split in 30 seconds. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>ML = show data, learn pattern, predict new data.</p>
+<p>Three words to know:<br />
+- <strong>Features</strong> — inputs (email text)<br />
+- <strong>Labels</strong> — outputs (spam / not spam)<br />
+- <strong>Loss</strong> — how wrong the model is</p>
+<p>Lower loss = better (during training).</p>
+<hr />
+<h2>Train / Val / Test</h2>
+<table>
+<thead>
+<tr>
+<th>Set</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Train</td>
+<td>Model learns here</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Tune hyperparams, pick model</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>Final score — touch once</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leakage</strong> = test info sneaks into train → fake good scores → prod disaster.</p>
+<hr />
+<h2>Overfitting vs underfitting</h2>
+<ul>
+<li><strong>Overfit</strong> — memorizes train, fails on new data (too complex)</li>
+<li><strong>Underfit</strong> — too simple, can't learn pattern</li>
+</ul>
+<p>Fix overfit: more data, regularization, simpler model, early stopping.</p>
+<hr />
+<h2>Classic algorithms (know names)</h2>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear regression</td>
+<td>Numbers</td>
+</tr>
+<tr>
+<td>Logistic regression</td>
+<td>Binary class</td>
+</tr>
+<tr>
+<td>Random forest</td>
+<td>Tabular, robust</td>
+</tr>
+<tr>
+<td>k-NN</td>
+<td>Simple similarity</td>
+</tr>
+</tbody>
+</table>
+<p>LLMs replaced a lot of NLP classifiers. Tabular ML still huge in industry.</p>
+<hr />
+<h2>Deep dive — supervised learning loop</h2>
+<pre><code>1. Collect labeled data
+2. Define loss function
+3. Initialize model weights (random)
+4. Forward pass → prediction
+5. Compute loss
+6. Backward pass → gradients
+7. Update weights (optimizer step)
+8. Repeat until val loss stops improving
+</code></pre>
+<p>Pretrained LLMs skip steps 1–8 for you on general language. Fine-tuning runs a shorter version on your labels.</p>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: When not use an LLM?</strong><br />
+<strong>A:</strong> Small labeled dataset, strict latency/cost, interpretability needed, or task is simple classification on tabular features — classical ML may win.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Name one problem for each: classification, regression, clustering. Which needs labels?</p></article>
+    <nav class="topic-nav">
+      <span><a href="04-math-you-actually-need.html">← 04 Math You Actually Need</a></span>
+      <span><a href="06-deep-learning-and-pytorch.html">06 Deep Learning & PyTorch →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

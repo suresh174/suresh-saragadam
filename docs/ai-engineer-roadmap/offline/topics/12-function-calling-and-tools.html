@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>12 — Function Calling & Tools</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 12 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="12" id="chk-topic-12" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-12">My notes (saved locally)</label>
+        <textarea id="notes-12" data-notes-for="12" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>12 — Function Calling &amp; Tools</h1>
+<p><strong>Checkpoint:</strong> Describe how an LLM "calls" a weather API without executing code itself. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>LLM can't run your database query. But it can <strong>output structured JSON</strong> saying:</p>
+<p><code>"call get_weather with city=London"</code></p>
+<p>Your code runs it, feeds result back. Model continues.</p>
+<p>That's <strong>function calling</strong> / <strong>tool use</strong>.</p>
+<hr />
+<h2>Flow</h2>
+<pre><code>User: &quot;What's the weather in London?&quot;
+  → LLM decides: need tool get_weather(city=&quot;London&quot;)
+  → Your server runs get_weather()
+  → Result: &quot;14°C, cloudy&quot;
+  → LLM: &quot;It's 14°C and cloudy in London.&quot;
+</code></pre>
+<hr />
+<h2>OpenAI tools pattern</h2>
+<pre><code class="language-python">tools = [{
+    &quot;type&quot;: &quot;function&quot;,
+    &quot;function&quot;: {
+        &quot;name&quot;: &quot;get_weather&quot;,
+        &quot;description&quot;: &quot;Get current weather for a city&quot;,
+        &quot;parameters&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+                &quot;city&quot;: {&quot;type&quot;: &quot;string&quot;}
+            },
+            &quot;required&quot;: [&quot;city&quot;]
+        }
+    }
+}]
+
+response = client.chat.completions.create(
+    model=&quot;gpt-4o-mini&quot;,
+    messages=messages,
+    tools=tools,
+)
+</code></pre>
+<p>If model returns <code>tool_calls</code>, you execute and send <code>tool</code> message back.</p>
+<hr />
+<h2>Tool design rules</h2>
+<ol>
+<li><strong>Clear names</strong> — <code>search_orders</code> not <code>fn1</code></li>
+<li><strong>Good descriptions</strong> — model picks tool from text</li>
+<li><strong>Validate args</strong> — never trust LLM output blindly</li>
+<li><strong>Timeout &amp; errors</strong> — return error text to model</li>
+</ol>
+<hr />
+<h2>Deep dive — tools vs MCP</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Function calling</td>
+<td>OpenAI/Anthropic API format</td>
+</tr>
+<tr>
+<td>Your functions</td>
+<td>Python functions you write</td>
+</tr>
+<tr>
+<td>MCP</td>
+<td>Standard protocol to expose tools to many clients</td>
+</tr>
+</tbody>
+</table>
+<p>Tools = capability. MCP = plug standard. AI Explorer teaches both.</p>
+<h3>Security</h3>
+<ul>
+<li>Read-only tools first</li>
+<li>Auth per tool call</li>
+<li>No raw SQL from model — parameterized queries only</li>
+<li>Rate limit external APIs</li>
+</ul>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: How do agents use tools?</strong><br />
+<strong>A:</strong> Loop: model plans → emits tool call → runtime executes → result as new message → model decides next step until final answer.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Define two tools: <code>add(a,b)</code> and <code>multiply(a,b)</code>. Ask model: "What is (3+4)*5?" Trace tool calls.</p></article>
+    <nav class="topic-nav">
+      <span><a href="11-rag-retrieval-augmented-generation.html">← 11 RAG</a></span>
+      <span><a href="13-ai-agents.html">13 AI Agents →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

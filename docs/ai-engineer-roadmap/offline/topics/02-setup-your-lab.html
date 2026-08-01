@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>02 — Setup Your Lab</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 02 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="02" id="chk-topic-02" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-02">My notes (saved locally)</label>
+        <textarea id="notes-02" data-notes-for="02" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>02 — Setup Your Lab</h1>
+<p><strong>Checkpoint:</strong> Run <code>python --version</code>, hit OpenAI API once, <code>docker --version</code>. All green? Tick.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>No fancy lab. You need:<br />
+- Python 3.11+<br />
+- A code editor (VS Code / Cursor)<br />
+- Git<br />
+- An API key (OpenAI or free local Ollama)<br />
+- Docker (optional but nice)</p>
+<hr />
+<h2>Install checklist</h2>
+<pre><code class="language-bash"># Python
+python3 --version   # want 3.11+
+
+# Create project folder
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+
+# Essentials
+pip install openai fastapi uvicorn httpx numpy
+</code></pre>
+<hr />
+<h2>API key — do it right</h2>
+<ol>
+<li>Get key from <a href="https://platform.openai.com">platform.openai.com</a></li>
+<li>Put in <code>.env</code> file:<br />
+<code>OPENAI_API_KEY=sk-...</code></li>
+<li><strong>Never</strong> commit <code>.env</code> to git</li>
+<li>Add <code>.env</code> to <code>.gitignore</code></li>
+</ol>
+<hr />
+<h2>Free alternative — Ollama (local)</h2>
+<pre><code class="language-bash"># Install Ollama, then:
+ollama pull llama3.2
+ollama run llama3.2
+</code></pre>
+<p>No bill. Slower. Great for learning.</p>
+<hr />
+<h2>Docker (one command apps)</h2>
+<pre><code class="language-bash">docker --version
+docker compose version
+</code></pre>
+<p>Many AI repos (including AI Explorer) start with <code>docker compose up</code>.</p>
+<hr />
+<h2>Deep dive — folder structure habit</h2>
+<p>Start every project like this:</p>
+<pre><code>my-ai-app/
+├── .env              # secrets
+├── .gitignore
+├── requirements.txt
+├── app/
+│   ├── main.py       # FastAPI entry
+│   └── llm.py        # model calls
+└── tests/
+</code></pre>
+<p>Clean folders = easier interviews ("I separated the LLM adapter from the router").</p>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: Where do you store API keys?</strong><br />
+<strong>A:</strong> Environment variables or secret manager (AWS Secrets Manager, Vault). Never client-side, never in git.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Create <code>.env</code>, write a 5-line Python script that prints "API key loaded" if <code>OPENAI_API_KEY</code> exists. Don't print the key itself.</p></article>
+    <nav class="topic-nav">
+      <span><a href="01-what-is-ai-engineering.html">← 01 What is AI Engineering?</a></span>
+      <span><a href="03-python-for-ai.html">03 Python for AI →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

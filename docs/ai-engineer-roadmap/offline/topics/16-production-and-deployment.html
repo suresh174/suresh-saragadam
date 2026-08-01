@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>16 — Production & Deployment</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 16 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="16" id="chk-topic-16" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-16">My notes (saved locally)</label>
+        <textarea id="notes-16" data-notes-for="16" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>16 — Production &amp; Deployment</h1>
+<p><strong>Checkpoint:</strong> Sketch architecture: client → API → LLM → DB. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>Demo on laptop ≠ production.</p>
+<p>Prod needs:<br />
+- <strong>API</strong> (FastAPI)<br />
+- <strong>Auth</strong> (keys, OAuth)<br />
+- <strong>Queue</strong> (long jobs)<br />
+- <strong>Logs</strong> (debug failures)<br />
+- <strong>Deploy</strong> (Docker, cloud)</p>
+<hr />
+<h2>Reference architecture</h2>
+<pre><code>Browser / App
+    ↓ HTTPS
+Load balancer
+    ↓
+FastAPI service
+    ├→ Redis (cache)
+    ├→ Vector DB
+    └→ OpenAI API
+</code></pre>
+<hr />
+<h2>FastAPI minimal</h2>
+<pre><code class="language-python">from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class ChatRequest(BaseModel):
+    message: str
+
+@app.post(&quot;/chat&quot;)
+async def chat(req: ChatRequest):
+  # call LLM, return reply
+    return {&quot;reply&quot;: &quot;...&quot;}
+</code></pre>
+<p>Run: <code>uvicorn app.main:app --reload</code></p>
+<hr />
+<h2>Docker one-liner mindset</h2>
+<pre><code class="language-dockerfile">FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+CMD [&quot;uvicorn&quot;, &quot;app.main:app&quot;, &quot;--host&quot;, &quot;0.0.0.0&quot;, &quot;--port&quot;, &quot;8000&quot;]
+</code></pre>
+<p><code>docker build</code> → <code>docker run</code> → same env everywhere.</p>
+<hr />
+<h2>Deep dive — production checklist</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Secrets</td>
+<td>Env vars, rotate keys</td>
+</tr>
+<tr>
+<td>Rate limits</td>
+<td>Per user/IP</td>
+</tr>
+<tr>
+<td>Timeouts</td>
+<td>LLM calls can hang</td>
+</tr>
+<tr>
+<td>Retries</td>
+<td>Exponential backoff on 5xx</td>
+</tr>
+<tr>
+<td>Streaming</td>
+<td>SSE for chat UX</td>
+</tr>
+<tr>
+<td>Health</td>
+<td><code>/health</code> for k8s</td>
+</tr>
+<tr>
+<td>Versioning</td>
+<td><code>/v1/chat</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Observability</h3>
+<p>Log (redact PII):<br />
+- Request ID<br />
+- Model + token count<br />
+- Latency per stage (retrieve vs generate)<br />
+- Error types</p>
+<p>Tools: LangSmith, Helicone, custom OpenTelemetry.</p>
+<h3>Scaling</h3>
+<ul>
+<li>Horizontal scale stateless API</li>
+<li>Vector DB replicas</li>
+<li>Cache embeddings for repeated queries</li>
+<li>Separate read/write paths for indexing</li>
+</ul>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: How do you deploy an LLM feature safely?</strong><br />
+<strong>A:</strong> Staged rollout, feature flags, offline eval gate, canary traffic, monitor latency/cost/error rate, rollback plan, human review on early traffic.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Add <code>/health</code> and <code>/chat</code> to a FastAPI app. Return model name in health response.</p></article>
+    <nav class="topic-nav">
+      <span><a href="15-evaluation-and-testing.html">← 15 Evaluation & Testing</a></span>
+      <span><a href="17-cost-performance-optimization.html">17 Cost & Performance →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>

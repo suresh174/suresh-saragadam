@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>14 — Fine-Tuning</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="bar">
+    <a href="../index.html">← Checklist</a>
+    <span class="nav-gap"></span>
+    <span class="offline-badge">Topic 14 / 20</span>
+  </header>
+  <div class="wrap">
+    <div class="checkpoint-box">
+      <label>
+        <input type="checkbox" data-topic-id="14" id="chk-topic-14" />
+        Mark checkpoint complete
+      </label>
+      <div class="notes-box">
+        <label for="notes-14">My notes (saved locally)</label>
+        <textarea id="notes-14" data-notes-for="14" placeholder="What clicked? What to revisit?"></textarea>
+      </div>
+    </div>
+    <article><h1>14 — Fine-Tuning</h1>
+<p><strong>Checkpoint:</strong> List 3 reasons to fine-tune vs 3 reasons to stick with prompting/RAG. Tick when done.</p>
+<hr />
+<h2>Small talk version</h2>
+<p>Fine-tune = extra training on <strong>your</strong> examples so model behaves your way.</p>
+<p>Use when:<br />
+- Same format 10,000 times (JSON extraction)<br />
+- Domain jargon (medical, legal)<br />
+- Style/tone must be exact</p>
+<p>Don't use when:<br />
+- Knowledge changes daily → <strong>RAG</strong><br />
+- Few examples → <strong>prompting</strong><br />
+- No budget/GPU → <strong>API + prompts</strong></p>
+<hr />
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What changes</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full fine-tune</td>
+<td>All weights</td>
+<td>$$$</td>
+</tr>
+<tr>
+<td>LoRA</td>
+<td>Small adapter layers</td>
+<td>$</td>
+</tr>
+<tr>
+<td>Distillation</td>
+<td>Small model mimics big</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LoRA</strong> = industry default for custom behavior.</p>
+<hr />
+<h2>Data format (instruction tuning)</h2>
+<pre><code class="language-json">{
+  &quot;messages&quot;: [
+    {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;Extract entities as JSON.&quot;},
+    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;John works at Acme.&quot;},
+    {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;{\&quot;name\&quot;:\&quot;John\&quot;,\&quot;company\&quot;:\&quot;Acme\&quot;}&quot;}
+  ]
+}
+</code></pre>
+<p>Quality &gt; quantity. 500 golden examples beat 50k noisy ones.</p>
+<hr />
+<h2>Deep dive — fine-tune pipeline</h2>
+<pre><code>1. Collect &amp; clean examples
+2. Train/val split
+3. Choose base model (often already instruction-tuned)
+4. Run LoRA training (epochs, learning rate)
+5. Eval on held-out set
+6. Deploy adapter or merged weights
+</code></pre>
+<p>OpenAI also offers <strong>fine-tuning API</strong> for GPT models — upload JSONL, they train.</p>
+<h3>When fine-tune beats RAG</h3>
+<ul>
+<li>Task is <strong>transformation</strong> (format, classify, rewrite) not <strong>lookup</strong></li>
+<li>Retrieved text would confuse model</li>
+<li>Latency: smaller fine-tuned model vs huge prompt</li>
+</ul>
+<h3>When RAG beats fine-tune</h3>
+<ul>
+<li>Facts update often</li>
+<li>Need citations</li>
+<li>Can't afford retrain cycle</li>
+</ul>
+<hr />
+<h2>Interview bite</h2>
+<p><strong>Q: How do you prevent catastrophic forgetting in fine-tuning?</strong><br />
+<strong>A:</strong> Use LoRA on limited layers, lower learning rate, mix general examples with task data, eval on general benchmarks not just task.</p>
+<hr />
+<h2>Mini exercise</h2>
+<p>Write 5 training examples for a model that converts angry customer emails into polite internal tickets.</p></article>
+    <nav class="topic-nav">
+      <span><a href="13-ai-agents.html">← 13 AI Agents</a></span>
+      <span><a href="15-evaluation-and-testing.html">15 Evaluation & Testing →</a></span>
+    </nav>
+  </div>
+  <script src="../assets/tracker.js"></script>
+</body>
+</html>
