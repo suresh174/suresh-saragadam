@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { profile } from "@/data/profile";
 
 const links = [
+  { href: "/learn", label: "Learn" },
   { href: "/#work", label: "Work" },
   { href: "/#skills", label: "Skills" },
   { href: "/#about", label: "About" },
@@ -56,7 +57,9 @@ export function SiteHeader() {
         >
           {links.map((link) => {
             const active =
-              link.href === "/writing"
+              link.href === "/learn"
+                ? pathname.startsWith("/learn")
+                : link.href === "/writing"
                 ? pathname.startsWith("/writing")
                 : link.href === "/labs"
                   ? pathname.startsWith("/labs")

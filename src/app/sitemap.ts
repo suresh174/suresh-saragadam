@@ -1,4 +1,9 @@
 import type { MetadataRoute } from "next";
+import {
+  allRoadmapTopics,
+  topicPath,
+} from "@/data/aiEngineerRoadmap";
+import { ROADMAP_HUB_PATH } from "@/data/aiEngineerRoadmap/types";
 import { aiExplorerLessons, SERIES_HUB_PATH } from "@/data/aiExplorerLessons";
 import { writingPosts } from "@/data/writing";
 
@@ -11,9 +16,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.9,
   }));
+  const learnUrls = allRoadmapTopics.map((topic) => ({
+    url: `${base}${topicPath(topic.slug)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.92,
+  }));
 
   return [
     { url: base, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
+    {
+      url: `${base}${ROADMAP_HUB_PATH}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.95,
+    },
+    ...learnUrls,
     {
       url: `${base}/about-bot`,
       lastModified: new Date(),
